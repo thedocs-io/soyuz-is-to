@@ -119,10 +119,74 @@ public class to {
         return s; //todo
     }
 
-    public static Map map(Object key, Object value) {
-        Map a = new HashMap();
-        a.put(key, value);
+    public static <K, V> Map<K, V> map(K k1, V v1) {
+        Map<K, V> a = new HashMap<K, V>();
+
+        a.put(k1, v1);
+
         return a;
+    }
+
+    public static <K, V> Map<K, V> map(K k1, V v1, K k2, V v2) {
+        Map<K, V> a = new HashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+
+        return a;
+    }
+
+    public static <K, V> Map<K, V> map(K k1, V v1, K k2, V v2, K k3, V v3) {
+        Map<K, V> a = new HashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+        a.put(k3, v3);
+
+        return a;
+    }
+
+    public static <K, V> Map<K, V> map(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+        Map<K, V> a = new HashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+        a.put(k3, v3);
+        a.put(k4, v4);
+
+        return a;
+    }
+
+    public static <K, V> Map<K, V> map(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+        Map<K, V> a = new HashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+        a.put(k3, v3);
+        a.put(k4, v4);
+        a.put(k5, v5);
+
+        return a;
+    }
+
+    public static Map<String, String> map(String... params) {
+        return fillMapWithParams(new HashMap<String, String>(), params);
+    }
+
+    public static Map map(Object... params) {
+        return fillMapWithParams(new HashMap(), params);
+    }
+
+    private static <K, V> Map<K, V> fillMapWithParams(Map map, Object... params) {
+        if (params.length % 2 != 0) {
+            throw new IllegalArgumentException("Params number should be even");
+        }
+
+        for (int i = 0; i < params.length/2; i++) {
+            map.put(params[i], params[i+1]);
+        }
+
+        return map;
     }
 
     public static <T> List<T> list(T value) {
