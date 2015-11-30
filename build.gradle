@@ -1,0 +1,43 @@
+apply plugin: "maven-publish"
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "groovy"
+
+group = "io.belov.soyuz"
+version = "1.0-SNAPSHOT"
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://mymavenrepo.com/repo/SbfutqGx3LM3VdY6CLKu/"
+    }
+}
+
+ext {
+    //myMavenRepoWriteToken = null
+}
+
+publishing {
+    repositories {
+        maven {
+            url "https://mymavenrepo.com/repo/${myMavenRepoWriteToken}/"
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    compile "org.slf4j:slf4j-api:1.7.2"
+
+    //test
+    testCompile "org.codehaus.groovy:groovy-all:2.3.6"
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.3"
+}
