@@ -14,6 +14,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -222,6 +224,20 @@ public class to {
         List<T> answer = new ArrayList<T>();
         Collections.addAll(answer, value);
         return answer;
+    }
+
+    public static <T, V> List<T> list(Collection<V> values, Function<V, T> mapper) {
+        List<T> answer = new ArrayList<T>(values.size());
+
+        for (V value : values) {
+            answer.add(mapper.apply(value));
+        }
+
+        return answer;
+    }
+
+    public static <T> T nullOr(Object o, Supplier<T> supplier) {
+        return (o == null) ? null : supplier.get();
     }
 
     public static <T> Set<T> set(T value) {
