@@ -184,8 +184,8 @@ public class to {
             throw new IllegalArgumentException("Params number should be even");
         }
 
-        for (int i = 0; i < params.length/2; i++) {
-            map.put(params[i], params[i+1]);
+        for (int i = 0; i < params.length / 2; i++) {
+            map.put(params[i * 2], params[i * 2 + 1]);
         }
 
         return map;
@@ -205,14 +205,14 @@ public class to {
      * @see org.apache.commons.collections.IteratorUtils.toList
      */
     public static <T> List<T> list(Iterator<T> iterator, int estimatedSize) {
-        if(iterator == null) {
+        if (iterator == null) {
             throw new NullPointerException("Iterator must not be null");
-        } else if(estimatedSize < 1) {
+        } else if (estimatedSize < 1) {
             throw new IllegalArgumentException("Estimated size must be greater than 0");
         } else {
             ArrayList<T> list = new ArrayList<T>(estimatedSize);
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 list.add(iterator.next());
             }
 

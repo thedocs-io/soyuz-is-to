@@ -46,10 +46,10 @@ class ToSpec extends Specification {
 
     def "should convert params to map"() {
         when:
-        def a = To.map(1, "1", "2", 2)
+        def a = To.map(1, "1", "2", 2, "3", 3, "4", 4, "5", 5, "6", 6)
 
         then:
-        assert a == [(1): "1", "2": 2]
+        assert a == [(1): "1", "2": 2, "3": 3, "4": 4, "5": 5, "6": 6]
     }
 
     def "shouldn't convert to map with odd params number"() {
