@@ -236,10 +236,6 @@ public class to {
         return answer;
     }
 
-    public static <T> T nullOr(Object o, Supplier<T> supplier) {
-        return (o == null) ? null : supplier.get();
-    }
-
     public static <T> Set<T> set(T value) {
         Set<T> answer = new HashSet<T>();
         answer.add(value);
@@ -268,6 +264,18 @@ public class to {
         //http://blog.progs.be/542/date-to-java-time
         Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
+    }
+
+    public static <T> T nullOr(Object o, Supplier<T> supplier) {
+        return (o == null) ? null : supplier.get();
+    }
+
+    public static <T> T or(T o, Supplier<T> supplier) {
+        return (o != null) ? o : supplier.get();
+    }
+
+    public static <T> T or(T o, T otherwise) {
+        return (o != null) ? o : otherwise;
     }
 
     public static <T> Stream<T> stream(T[] array) {
