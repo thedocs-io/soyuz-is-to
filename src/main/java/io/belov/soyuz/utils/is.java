@@ -28,6 +28,22 @@ public class is {
         return check != null && check.size() > 0;
     }
 
+    public static boolean t(Long check) {
+        return check != null && check != 0;
+    }
+
+    public static boolean t(Integer check) {
+        return check != null && check != 0;
+    }
+
+    public static boolean t(Short check) {
+        return check != null && check != 0;
+    }
+
+    public static boolean t(Byte check) {
+        return check != null && check != 0;
+    }
+
     public static boolean tt(String check) {
         return check != null && check.trim().length() > 0;
     }
