@@ -1,5 +1,6 @@
 package io.belov.soyuz.utils;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
@@ -42,6 +43,10 @@ public class is {
 
     public static boolean t(Byte check) {
         return check != null && check != 0;
+    }
+
+    public static boolean t(File file) {
+        return file != null && file.exists();
     }
 
     public static boolean tt(String check) {
