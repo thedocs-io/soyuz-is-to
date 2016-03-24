@@ -10,9 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -264,6 +262,24 @@ public class to {
         //http://blog.progs.be/542/date-to-java-time
         Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
         return Date.from(instant);
+    }
+
+    public static LocalDateTime localDateTime(long millis) {
+        //http://blog.progs.be/542/date-to-java-time
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
+    }
+
+    public static LocalDateTime localDateTime(Date date) {
+        //http://blog.progs.be/542/date-to-java-time
+        return localDateTime(date.getTime());
+    }
+
+    public static LocalDate localDate(long millis) {
+        return localDateTime(millis).toLocalDate();
+    }
+
+    public static LocalTime localTime(long millis) {
+        return localDateTime(millis).toLocalTime();
     }
 
     public static <T> T nullOr(Object o, Supplier<T> supplier) {
