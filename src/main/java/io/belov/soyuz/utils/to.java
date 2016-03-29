@@ -14,10 +14,7 @@ import java.time.*;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 public class to {
 
@@ -243,6 +240,16 @@ public class to {
     public static <T> Set<T> set(T... value) {
         Set<T> answer = new HashSet<T>();
         Collections.addAll(answer, value);
+        return answer;
+    }
+
+    public static <T, V> Set<T> set(Collection<V> values, Function<V, T> mapper) {
+        Set<T> answer = new HashSet<T>();
+
+        for (V value : values) {
+            answer.add(mapper.apply(value));
+        }
+
         return answer;
     }
 
