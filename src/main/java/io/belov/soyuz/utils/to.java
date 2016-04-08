@@ -317,6 +317,43 @@ public class to {
         return Arrays.stream(array);
     }
 
+    public static Thread daemon(Runnable runnable) {
+        return daemon(null, runnable);
+    }
+
+    public static Thread daemon(String threadName, Runnable runnable) {
+        Thread t = (is.t(threadName)) ? new Thread(runnable, threadName) : new Thread(runnable);
+        t.setDaemon(true);
+
+        return t;
+    }
+
+    public static Thread daemonForever(long delayInMillis, Runnable runnable) {
+        return daemonForever(null, delayInMillis, runnable);
+    }
+
+    public static Thread daemonForever(final String threadName, final long delayInMillis, final Runnable runnable) {
+        Runnable forever = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        runnable.run();
+
+                        Thread.sleep(delayInMillis);
+                    } catch (Throwable e) {
+                        log.error("daemon.forever.e: " + threadName, e);
+                    }
+                }
+            }
+        };
+
+        Thread t = (is.t(threadName)) ? new Thread(forever, threadName) : new Thread(forever);
+        t.setDaemon(true);
+
+        return t;
+    }
+
     private static Integer doIntConvert(BigDecimal val) {
         return val.intValue();
     }
