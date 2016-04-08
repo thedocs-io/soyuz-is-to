@@ -339,10 +339,14 @@ public class to {
                 while (true) {
                     try {
                         runnable.run();
-
-                        Thread.sleep(delayInMillis);
                     } catch (Throwable e) {
                         log.error("daemon.forever.e: " + threadName, e);
+                    }
+
+                    try {
+                        Thread.sleep(delayInMillis);
+                    } catch (InterruptedException e) {
+                        //
                     }
                 }
             }
