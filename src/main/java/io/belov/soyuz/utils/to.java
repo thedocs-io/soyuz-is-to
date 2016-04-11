@@ -112,6 +112,31 @@ public class to {
         return objects;
     }
 
+    public static String[] arrOfStrings(Collection<String> collection) {
+        return collection.stream().toArray(String[]::new);
+    }
+
+    public static Integer[] arrOfIntegers(Collection<Integer> collection) {
+        return collection.stream().toArray(Integer[]::new);
+    }
+
+    public static Long[] arrOfLongs(Collection<? extends Number> collection) {
+        return collection.stream().toArray(Long[]::new);
+    }
+
+    public static int[] arrOfSimpleInts(Collection<Integer> collection) {
+        int i = 0;
+        int size = collection.size();
+        int[] answer = new int[size];
+
+        for (Integer value : collection) {
+            answer[i] = value;
+            i++;
+        }
+
+        return answer;
+    }
+
     public static String s(String s, Object... params) {
         return s; //todo
     }
