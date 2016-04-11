@@ -195,8 +195,16 @@ public class to {
         return fillMapWithParams(new HashMap<String, String>(), params);
     }
 
+    public static Map<String, String> map(Map<String, String> source, String... params) {
+        return fillMapWithParams(new HashMap<>(source), params);
+    }
+
     public static Map map(Object... params) {
         return fillMapWithParams(new HashMap(), params);
+    }
+
+    public static Map map(Map source, Object... params) {
+        return fillMapWithParams(new HashMap(source), params);
     }
 
     private static <K, V> Map<K, V> fillMapWithParams(Map map, Object... params) {

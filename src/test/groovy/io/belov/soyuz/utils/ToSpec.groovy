@@ -52,6 +52,16 @@ class ToSpec extends Specification {
         assert a == [(1): "1", "2": 2, "3": 3, "4": 4, "5": 5, "6": 6]
     }
 
+    def "should use values from source map"() {
+        when:
+        def source = [hello: "world"]
+        def a = To.map(source, "again", "=)")
+
+        then:
+        assert a == [hello: "world", again: "=)"]
+        assert source == [hello: "world"]
+    }
+
     def "shouldn't convert to map with odd params number"() {
         when:
         To.map("a")
