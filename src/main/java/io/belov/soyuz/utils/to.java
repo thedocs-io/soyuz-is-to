@@ -141,7 +141,7 @@ public class to {
         return s; //todo
     }
 
-    public static String s(String s, Map<String, Object> params) {
+    public static String s(String s, Map<String, ?> params) {
         return s; //todo
     }
 
