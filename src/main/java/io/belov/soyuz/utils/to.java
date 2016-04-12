@@ -141,6 +141,10 @@ public class to {
         return s; //todo
     }
 
+    public static String s(String s, Map<String, Object> params) {
+        return s; //todo
+    }
+
     public static <K, V> Map<K, V> map(K k1, V v1) {
         Map<K, V> a = new HashMap<K, V>();
 
