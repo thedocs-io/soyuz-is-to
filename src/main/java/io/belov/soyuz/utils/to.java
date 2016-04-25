@@ -304,8 +304,11 @@ public class to {
 
     public static Date date(LocalDateTime localDateTime) {
         //http://blog.progs.be/542/date-to-java-time
-        Instant instant = localDateTime.atZone(ZoneId.systemDefault()).toInstant();
-        return Date.from(instant);
+        return date(localDateTime.atZone(ZoneId.systemDefault()));
+    }
+
+    public static Date date(ZonedDateTime zonedDateTime) {
+        return Date.from(zonedDateTime.toInstant());
     }
 
     public static LocalDateTime localDateTime(long millis) {
