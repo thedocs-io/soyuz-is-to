@@ -376,18 +376,18 @@ public class to {
         Runnable forever = new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    try {
+                try {
+                    while (true) {
                         runnable.run();
-                    } catch (Throwable e) {
-                        log.error("daemon.forever.e: " + threadName, e);
-                    }
 
-                    try {
-                        Thread.sleep(delayInMillis);
-                    } catch (InterruptedException e) {
-                        //
+                        try {
+                            Thread.sleep(delayInMillis);
+                        } catch (InterruptedException e) {
+                            //
+                        }
                     }
+                } catch (Throwable e) {
+                    log.error("daemon.forever.e: " + threadName, e);
                 }
             }
         };
