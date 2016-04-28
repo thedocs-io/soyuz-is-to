@@ -69,4 +69,15 @@ class ToSpec extends Specification {
         then:
         thrown(IllegalArgumentException)
     }
+
+    def "should return log message"() {
+        when:
+        def doesNotMatter
+
+        then:
+        assert To.log("hello") == "[hello]"
+
+        then:
+        assert To.log("world", To.map("a", "b", "c", "d")) == "[world]{a=b, c=d}"
+    }
 }

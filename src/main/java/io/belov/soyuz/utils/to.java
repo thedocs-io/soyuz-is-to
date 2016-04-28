@@ -145,6 +145,20 @@ public class to {
         return s; //todo
     }
 
+    public static String log(String event) {
+        return log(event, null);
+    }
+
+    public static String log(String event, Map params) {
+        String answer = "[" + event + "]";
+
+        if (params != null) {
+            answer += params;
+        }
+
+        return answer;
+    }
+
     public static <K, V> Map<K, V> map(K k1, V v1) {
         Map<K, V> a = new HashMap<K, V>();
 
