@@ -359,6 +359,12 @@ public class to {
         return Arrays.stream(array);
     }
 
+    //http://stackoverflow.com/a/24511534
+    public static <T> Stream<T> stream(final Iterator<T> iterator) {
+        final Iterable<T> iterable = () -> iterator;
+        return StreamSupport.stream(iterable.spliterator(), false);
+    }
+
     public static IntStream stream(int[] array) {
         return Arrays.stream(array);
     }
