@@ -138,11 +138,28 @@ public class to {
     }
 
     public static String s(String s, Object... params) {
-        return s; //todo
+        for (int i = 0; i < params.length; i++) {
+            s = s.replace("{" + i + "}", params[i].toString());
+        }
+        return s;
     }
 
     public static String s(String s, Map<String, ?> params) {
         return s; //todo
+    }
+
+    public static String s(Iterable iterable, String separator) {
+        Iterator iterator = iterable.iterator();
+        StringBuilder sb = new StringBuilder();
+
+        if (iterator.hasNext()) {
+            sb.append(iterator.next());
+            while (iterator.hasNext()) {
+                sb.append(separator).append(iterator.next());
+            }
+        }
+
+        return sb.toString();
     }
 
     public static String log(String event) {

@@ -80,4 +80,32 @@ class ToSpec extends Specification {
         then:
         assert To.log("world", To.map("a", "b", "c", "d")) == "[world]{a=b, c=d}"
     }
+
+    def "should construct string"() {
+        when:
+        def s = To.s("map {1} and int {0}", 5, [hello: "world"])
+
+        then:
+        assert s == "map {hello=world} and int 5"
+
+        when:
+        s = To.s("more {1} params", "abc", "efg", "qwe")
+
+        then:
+        assert s == "more efg params"
+
+        when:
+        s = To.s("less {1} params")
+
+        then:
+        assert s == "less {1} params"
+    }
+
+    def "should join collection"() {
+        when:
+        def s = To.s([5, "hello", "world"], "::")
+
+        then:
+        assert s == "5::hello::world"
+    }
 }
