@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.*;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.*;
@@ -294,6 +295,16 @@ public class to {
 
         for (V value : values) {
             answer.add(mapper.apply(value));
+        }
+
+        return answer;
+    }
+
+    public static <K, V, R> List<R> list(Map<K, V> map, BiFunction<K, V, R> mapper) {
+        List<R> answer = new ArrayList<>(map.values().size());
+
+        for (Map.Entry<K, V> e : map.entrySet()) {
+            answer.add(mapper.apply(e.getKey(), e.getValue()));
         }
 
         return answer;
