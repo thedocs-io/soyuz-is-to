@@ -322,6 +322,18 @@ public class to {
         return answer;
     }
 
+    public static <V> Set<V> set(Collection<V> values) {
+        if (values instanceof Set) {
+            return (Set<V>) values;
+        } else {
+            Set<V> answer = new HashSet<>();
+
+            answer.addAll(values);
+
+            return answer;
+        }
+    }
+
     public static <T, V> Set<T> set(Collection<V> values, Function<V, T> mapper) {
         Set<T> answer = new HashSet<T>();
 
