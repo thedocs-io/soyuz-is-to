@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.time.*;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -139,10 +140,7 @@ public class to {
     }
 
     public static String s(String s, Object... params) {
-        for (int i = 0; i < params.length; i++) {
-            s = s.replace("{" + i + "}", params[i].toString());
-        }
-        return s;
+        return MessageFormat.format(s, params);
     }
 
     public static String s(String s, Map<String, ?> params) {
