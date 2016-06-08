@@ -114,6 +114,19 @@ public class to {
         return objects;
     }
 
+    public static <V> Object[] arr(Collection<V> objects, Function<V, Object> mapper) {
+        int i = 0;
+        int size = objects.size();
+        Object[] answer = new Object[size];
+
+        for (V value : objects) {
+            answer[i] = mapper.apply(value);
+            i++;
+        }
+
+        return answer;
+    }
+
     public static String[] arrOfStrings(Collection<String> collection) {
         return collection.stream().toArray(String[]::new);
     }
