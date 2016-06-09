@@ -395,8 +395,12 @@ public class to {
         return Date.from(zonedDateTime.toInstant());
     }
 
-    public static java.sql.Date dateSql(Date date) {
+    public static java.sql.Date sqlDate(Date date) {
         return new java.sql.Date(date.getTime());
+    }
+
+    public static java.sql.Timestamp sqlTimestamp(Date date) {
+        return new java.sql.Timestamp(date.getTime());
     }
 
     public static LocalDateTime localDateTime(long millis) {
