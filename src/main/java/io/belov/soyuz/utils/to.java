@@ -367,9 +367,22 @@ public class to {
         return answer;
     }
 
+    public static Date date(LocalDate localDate) {
+        //http://stackoverflow.com/a/22929420/716027
+        return date(localDate, ZoneId.systemDefault());
+    }
+
+    public static Date date(LocalDate localDate, ZoneId zone) {
+        return date(localDate.atStartOfDay(zone));
+    }
+
     public static Date date(LocalDateTime localDateTime) {
         //http://blog.progs.be/542/date-to-java-time
-        return date(localDateTime.atZone(ZoneId.systemDefault()));
+        return date(localDateTime, ZoneId.systemDefault());
+    }
+
+    public static Date date(LocalDateTime localDateTime, ZoneId zone) {
+        return date(localDateTime.atZone(zone));
     }
 
     public static Date date(ZonedDateTime zonedDateTime) {
@@ -378,7 +391,11 @@ public class to {
 
     public static LocalDateTime localDateTime(long millis) {
         //http://blog.progs.be/542/date-to-java-time
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
+        return localDateTime(millis, ZoneId.systemDefault());
+    }
+
+    public static LocalDateTime localDateTime(long millis, ZoneId zone) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), zone);
     }
 
     public static LocalDateTime localDateTime(Date date) {
