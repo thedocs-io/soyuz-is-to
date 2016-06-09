@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.*;
 import java.text.MessageFormat;
 import java.time.*;
 import java.util.*;
+import java.util.Date;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -367,6 +369,10 @@ public class to {
         return answer;
     }
 
+    public static Date date(java.sql.Date dateSql) {
+        return new Date(dateSql.getTime());
+    }
+
     public static Date date(LocalDate localDate) {
         //http://stackoverflow.com/a/22929420/716027
         return date(localDate, ZoneId.systemDefault());
@@ -387,6 +393,10 @@ public class to {
 
     public static Date date(ZonedDateTime zonedDateTime) {
         return Date.from(zonedDateTime.toInstant());
+    }
+
+    public static java.sql.Date dateSql(Date date) {
+        return new java.sql.Date(date.getTime());
     }
 
     public static LocalDateTime localDateTime(long millis) {
