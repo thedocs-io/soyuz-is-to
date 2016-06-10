@@ -7,14 +7,13 @@ package io.belov.soyuz.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.*;
 import java.text.MessageFormat;
 import java.time.*;
 import java.util.*;
-import java.util.Date;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -116,32 +115,36 @@ public class to {
         return objects;
     }
 
-    public static <V> Object[] arr(Collection<V> objects, Function<V, Object> mapper) {
+    public static <V> Object[] arr(@Nullable Collection<V> objects, @Nullable Function<V, Object> mapper) {
+        if (objects == null) return new Object[0];
+
         int i = 0;
         int size = objects.size();
         Object[] answer = new Object[size];
 
         for (V value : objects) {
-            answer[i] = mapper.apply(value);
+            answer[i] = (mapper == null) ? value : mapper.apply(value);
             i++;
         }
 
         return answer;
     }
 
-    public static String[] arrOfStrings(Collection<String> collection) {
-        return collection.stream().toArray(String[]::new);
+    public static String[] arrOfStrings(@Nullable Collection<String> collection) {
+        return (collection == null) ? new String[0] : collection.stream().toArray(String[]::new);
     }
 
-    public static Integer[] arrOfIntegers(Collection<Integer> collection) {
-        return collection.stream().toArray(Integer[]::new);
+    public static Integer[] arrOfIntegers(@Nullable Collection<Integer> collection) {
+        return (collection == null) ? new Integer[0] : collection.stream().toArray(Integer[]::new);
     }
 
-    public static Long[] arrOfLongs(Collection<? extends Number> collection) {
-        return collection.stream().toArray(Long[]::new);
+    public static Long[] arrOfLongs(@Nullable Collection<? extends Number> collection) {
+        return (collection == null) ? new Long[0] : collection.stream().toArray(Long[]::new);
     }
 
-    public static int[] arrOfSimpleInts(Collection<Integer> collection) {
+    public static int[] arrOfSimpleInts(@Nullable Collection<Integer> collection) {
+        if (collection == null) return new int[0];
+
         int i = 0;
         int size = collection.size();
         int[] answer = new int[size];
@@ -369,38 +372,46 @@ public class to {
         return answer;
     }
 
-    public static Date date(java.sql.Date dateSql) {
-        return new Date(dateSql.getTime());
+    @Nullable
+    public static Date date(@Nullable java.sql.Date dateSql) {
+        return (dateSql) == null ? null : new Date(dateSql.getTime());
     }
 
-    public static Date date(LocalDate localDate) {
+    @Nullable
+    public static Date date(@Nullable LocalDate localDate) {
         //http://stackoverflow.com/a/22929420/716027
         return date(localDate, ZoneId.systemDefault());
     }
 
-    public static Date date(LocalDate localDate, ZoneId zone) {
-        return date(localDate.atStartOfDay(zone));
+    @Nullable
+    public static Date date(@Nullable LocalDate localDate, ZoneId zone) {
+        return (localDate == null) ? null : date(localDate.atStartOfDay(zone));
     }
 
-    public static Date date(LocalDateTime localDateTime) {
+    @Nullable
+    public static Date date(@Nullable LocalDateTime localDateTime) {
         //http://blog.progs.be/542/date-to-java-time
         return date(localDateTime, ZoneId.systemDefault());
     }
 
-    public static Date date(LocalDateTime localDateTime, ZoneId zone) {
-        return date(localDateTime.atZone(zone));
+    @Nullable
+    public static Date date(@Nullable LocalDateTime localDateTime, ZoneId zone) {
+        return (localDateTime == null) ? null : date(localDateTime.atZone(zone));
     }
 
-    public static Date date(ZonedDateTime zonedDateTime) {
-        return Date.from(zonedDateTime.toInstant());
+    @Nullable
+    public static Date date(@Nullable ZonedDateTime zonedDateTime) {
+        return (zonedDateTime == null) ? null : Date.from(zonedDateTime.toInstant());
     }
 
-    public static java.sql.Date sqlDate(Date date) {
-        return new java.sql.Date(date.getTime());
+    @Nullable
+    public static java.sql.Date sqlDate(@Nullable Date date) {
+        return (date == null) ? null : new java.sql.Date(date.getTime());
     }
 
-    public static java.sql.Timestamp sqlTimestamp(Date date) {
-        return new java.sql.Timestamp(date.getTime());
+    @Nullable
+    public static java.sql.Timestamp sqlTimestamp(@Nullable Date date) {
+        return (date == null) ? null : new java.sql.Timestamp(date.getTime());
     }
 
     public static LocalDateTime localDateTime(long millis) {
@@ -412,9 +423,10 @@ public class to {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), zone);
     }
 
-    public static LocalDateTime localDateTime(Date date) {
+    @Nullable
+    public static LocalDateTime localDateTime(@Nullable Date date) {
         //http://blog.progs.be/542/date-to-java-time
-        return localDateTime(date.getTime());
+        return (date == null) ? null : localDateTime(date.getTime());
     }
 
     public static LocalDate localDate(long millis) {

@@ -4,7 +4,7 @@ apply plugin: "idea"
 apply plugin: "groovy"
 
 group = "io.belov.soyuz"
-version = "1.25"
+version = "1.26"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -36,6 +36,7 @@ publishing {
 
 dependencies {
     compile "org.slf4j:slf4j-api:1.7.2"
+    compile "com.google.code.findbugs:jsr305:3.0.0"
 
     //test
     testCompile "org.codehaus.groovy:groovy-all:2.3.6"
