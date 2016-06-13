@@ -259,6 +259,30 @@ public class to {
         return fillMapWithParams(new HashMap(source), params);
     }
 
+    public static <K, V, R> Map<K, R> map(Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
+        Map<K, R> answer = new HashMap<K, R>();
+
+        for (Map.Entry<K, V> e : source.entrySet()) {
+            Map<K, R> entry = mapper.apply(e);
+
+            if (entry != null) {
+                answer.putAll(entry);
+            }
+        }
+
+        return answer;
+    }
+
+    public static <K, V, R> Map<K, R> map(Map<K, V> source, BiFunction<K, V, R> mapper) {
+        Map<K, R> answer = new HashMap<K, R>();
+
+        for (Map.Entry<K, V> e : source.entrySet()) {
+            answer.put(e.getKey(), mapper.apply(e.getKey(), e.getValue()));
+        }
+
+        return answer;
+    }
+
     private static <K, V> Map<K, V> fillMapWithParams(Map map, Object... params) {
         if (params.length % 2 != 0) {
             throw new IllegalArgumentException("Params number should be even");

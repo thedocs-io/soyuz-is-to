@@ -4,6 +4,8 @@ import io.belov.soyuz.utils.to as To;
 
 import spock.lang.Specification
 
+import java.util.function.BiFunction
+
 /**
  * Created by fbelov on 30.11.15.
  */
@@ -50,6 +52,17 @@ class ToSpec extends Specification {
 
         then:
         assert a == [(1): "1", "2": 2, "3": 3, "4": 4, "5": 5, "6": 6]
+    }
+
+    def "should convert map"() {
+        when:
+        def a = [hello: 1, world: 2]
+        def b = To.map(a, { k, v ->
+            return v*2
+        } as BiFunction)
+
+        then:
+        assert b == [hello: 2, world: 4]
     }
 
     def "should use values from source map"() {
