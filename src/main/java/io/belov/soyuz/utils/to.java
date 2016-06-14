@@ -453,6 +453,11 @@ public class to {
         return (date == null) ? null : localDateTime(date.getTime());
     }
 
+    @Nullable
+    public static LocalDate localDate(@Nullable Date date) {
+        return (date == null) ? null : localDate(date.getTime());
+    }
+
     public static LocalDate localDate(long millis) {
         return localDateTime(millis).toLocalDate();
     }
