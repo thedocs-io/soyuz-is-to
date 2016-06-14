@@ -330,6 +330,16 @@ public class to {
         return answer;
     }
 
+    public static <T, R> List<R> list(T[] values, Function<T, R> mapper) {
+        List<R> answer = new ArrayList<R>(values.length);
+
+        for (T value : values) {
+            answer.add(mapper.apply(value));
+        }
+
+        return answer;
+    }
+
     public static <T, V> List<T> list(Collection<V> values, Function<V, T> mapper) {
         List<T> answer = new ArrayList<T>(values.size());
 
