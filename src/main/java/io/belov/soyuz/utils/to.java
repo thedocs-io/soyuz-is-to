@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.time.*;
 import java.util.*;
@@ -103,10 +105,20 @@ public class to {
         return defaultValue;
     }
 
+    @Nullable
     public static URI uri(String url) {
         try {
             return new URI(url);
         } catch (URISyntaxException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    public static URL url(String url) {
+        try {
+            return new URL(url);
+        } catch (MalformedURLException e) {
             return null;
         }
     }
