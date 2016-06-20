@@ -127,6 +127,10 @@ public class to {
         return objects;
     }
 
+    public static <V> V[] arr(Collection<V> objects) {
+        return objects.toArray((V[]) new Object[objects.size()]);
+    }
+
     public static <V> Object[] arr(@Nullable Collection<V> objects, @Nullable Function<V, Object> mapper) {
         if (objects == null) return new Object[0];
 
