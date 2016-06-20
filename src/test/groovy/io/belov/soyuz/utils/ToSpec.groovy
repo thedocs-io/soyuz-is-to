@@ -124,7 +124,7 @@ class ToSpec extends Specification {
 
     def "should convert array to list"() {
         when:
-        def l = To.arr([1, 3, 2])
+        def l = To.arr([1, 3, 2], Integer)
 
         then:
         assert l == [1, 3, 2] as Integer[]

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -127,8 +128,8 @@ public class to {
         return objects;
     }
 
-    public static <V> V[] arr(Collection<V> objects) {
-        return objects.toArray((V[]) new Object[objects.size()]);
+    public static <V> V[] arr(Collection<V> objects, Class<V> clazz) {
+        return objects.toArray((V[]) Array.newInstance(clazz, objects.size()));
     }
 
     public static <V> Object[] arr(@Nullable Collection<V> objects, @Nullable Function<V, Object> mapper) {
