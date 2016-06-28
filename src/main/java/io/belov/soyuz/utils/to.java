@@ -300,6 +300,16 @@ public class to {
         return answer;
     }
 
+    public static <T, K, V> Map<K, V> map(Collection<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        Map<K, V> answer = new HashMap<K, V>();
+
+        for (T e : source) {
+            answer.put(keyFunction.apply(e), valueFunction.apply(e));
+        }
+
+        return answer;
+    }
+
     private static <K, V> Map<K, V> fillMapWithParams(Map map, Object... params) {
         if (params.length % 2 != 0) {
             throw new IllegalArgumentException("Params number should be even");
