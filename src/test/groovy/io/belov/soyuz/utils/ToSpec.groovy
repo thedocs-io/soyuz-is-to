@@ -114,6 +114,26 @@ class ToSpec extends Specification {
         assert s == "less {1} params"
     }
 
+    def "should construct string from map"() {
+        when:
+        def s = To.s("map {a} and int {b}", [b: 5, a: [hello: "world"]])
+
+        then:
+        assert s == "map {hello=world} and int 5"
+
+        when:
+        s = To.s("more {b} params", [a: "abc", b: "efg", c: "qwe"])
+
+        then:
+        assert s == "more efg params"
+
+        when:
+        s = To.s("less {a} params {b}", [b: "efg", c: "qwe"])
+
+        then:
+        assert s == "less {a} params efg"
+    }
+
     def "should join collection"() {
         when:
         def s = To.s([5, "hello", "world"], "::")

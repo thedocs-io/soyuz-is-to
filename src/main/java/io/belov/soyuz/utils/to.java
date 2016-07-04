@@ -179,7 +179,11 @@ public class to {
     }
 
     public static String s(String s, Map<String, ?> params) {
-        return s; //todo
+        for (Map.Entry<String, ?> e : params.entrySet()) {
+            s = s.replace("{" + e.getKey() + "}", e.getValue().toString());
+        }
+
+        return s;
     }
 
     public static String s(Iterable iterable, String separator) {
