@@ -214,6 +214,11 @@ public class to {
         return answer;
     }
 
+    @Nullable
+    public static <T, V> V valueOrNull(@Nullable T object, Function<T, V> func) {
+        return (object == null) ? null : func.apply(object);
+    }
+
     public static <K, V> Map<K, V> map(K k1, V v1) {
         Map<K, V> a = new HashMap<K, V>();
 
