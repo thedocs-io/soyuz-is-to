@@ -309,6 +309,10 @@ public class to {
         return answer;
     }
 
+    public static <T, K> Map<K, T> map(Collection<T> source, Function<T, K> keyFunction) {
+        return map(source, keyFunction, (s) -> s);
+    }
+
     public static <T, K, V> Map<K, V> map(Collection<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
         Map<K, V> answer = new HashMap<K, V>();
 

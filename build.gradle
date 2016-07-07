@@ -4,7 +4,7 @@ apply plugin: "idea"
 apply plugin: "groovy"
 
 group = "io.belov.soyuz"
-version = "1.35"
+version = "1.36"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -42,4 +42,5 @@ dependencies {
     testCompile "junit:junit:4.12"
     testCompile "org.codehaus.groovy:groovy-all:2.3.6"
     testCompile "org.spockframework:spock-core:1.0-groovy-2.3"
+    testCompile "org.projectlombok:lombok:1.16.8"
 }
