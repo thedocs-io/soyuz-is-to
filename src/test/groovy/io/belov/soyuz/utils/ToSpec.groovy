@@ -11,6 +11,18 @@ import java.util.function.BiFunction
  */
 class ToSpec extends Specification {
 
+    def "should return empty list/set"() {
+        when:
+        def s = To.set()
+        def l = To.list()
+
+        then:
+        assert s instanceof Set
+        assert s.size() == 0
+        assert l instanceof List
+        assert l.size() == 0
+    }
+
     def "should convert to map"() {
         setup:
         def a
