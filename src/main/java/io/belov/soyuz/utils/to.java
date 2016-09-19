@@ -341,16 +341,18 @@ public class to {
         return answer;
     }
 
-    public static <T> List<T> list(Iterator<T> iterator) {
+    @Nullable
+    public static <T> List<T> list(@Nullable Iterator<T> iterator) {
         return list(iterator, 10);
     }
 
     /**
      * @see org.apache.commons.collections.IteratorUtils.toList
      */
-    public static <T> List<T> list(Iterator<T> iterator, int estimatedSize) {
+    @Nullable
+    public static <T> List<T> list(@Nullable Iterator<T> iterator, int estimatedSize) {
         if (iterator == null) {
-            throw new NullPointerException("Iterator must not be null");
+            return null;
         } else if (estimatedSize < 1) {
             throw new IllegalArgumentException("Estimated size must be greater than 0");
         } else {
@@ -370,7 +372,10 @@ public class to {
         return answer;
     }
 
-    public static <T, R> List<R> list(T[] values, Function<T, R> mapper) {
+    @Nullable
+    public static <T, R> List<R> list(@Nullable T[] values, Function<T, R> mapper) {
+        if (values == null) return null;
+
         List<R> answer = new ArrayList<R>(values.length);
 
         for (T value : values) {
@@ -380,7 +385,10 @@ public class to {
         return answer;
     }
 
-    public static <T, V> List<T> list(Collection<V> values, Function<V, T> mapper) {
+    @Nullable
+    public static <T, V> List<T> list(@Nullable Collection<V> values, Function<V, T> mapper) {
+        if (values == null) return null;
+
         List<T> answer = new ArrayList<T>(values.size());
 
         for (V value : values) {
@@ -390,7 +398,10 @@ public class to {
         return answer;
     }
 
-    public static <K, V, R> List<R> list(Map<K, V> map, BiFunction<K, V, R> mapper) {
+    @Nullable
+    public static <K, V, R> List<R> list(@Nullable Map<K, V> map, BiFunction<K, V, R> mapper) {
+        if (map == null) return null;
+
         List<R> answer = new ArrayList<>(map.values().size());
 
         for (Map.Entry<K, V> e : map.entrySet()) {
