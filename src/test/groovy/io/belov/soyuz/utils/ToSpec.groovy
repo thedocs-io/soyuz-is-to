@@ -161,4 +161,12 @@ class ToSpec extends Specification {
         then:
         assert l == [1, 3, 2] as Integer[]
     }
+
+    def "should transform set to list"() {
+        when:
+        def a = [1, 3, 3, 2] as Set
+
+        then:
+        assert To.list(a) == [1, 3, 2]
+    }
 }

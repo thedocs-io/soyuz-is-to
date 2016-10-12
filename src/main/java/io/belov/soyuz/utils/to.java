@@ -174,6 +174,11 @@ public class to {
         return answer;
     }
 
+    @Nullable
+    public static String s(@Nullable Object s) {
+        return (s == null) ? null : s.toString();
+    }
+
     public static String s(String s, Object... params) {
         return MessageFormat.format(s, params);
     }
@@ -383,6 +388,21 @@ public class to {
         }
 
         return answer;
+    }
+
+    @Nullable
+    public static <V> List<V> list(@Nullable Collection<V> values) {
+        if (values == null) {
+            return null;
+        } else if (values instanceof List) {
+            return (List<V>) values;
+        } else {
+            List<V> answer = new ArrayList<V>();
+
+            answer.addAll(values);
+
+            return answer;
+        }
     }
 
     @Nullable
