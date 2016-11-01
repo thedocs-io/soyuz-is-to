@@ -115,12 +115,28 @@ public class to {
         }
     }
 
+    public static URI uriOrException(String url) {
+        try {
+            return new URI(url);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Nullable
     public static URL url(String url) {
         try {
             return new URL(url);
         } catch (MalformedURLException e) {
             return null;
+        }
+    }
+
+    public static URL urlOrException(String url) {
+        try {
+            return new URL(url);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
     }
 
