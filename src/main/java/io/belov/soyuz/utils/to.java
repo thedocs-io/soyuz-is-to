@@ -563,6 +563,20 @@ public class to {
         return localDateTime(millis).toLocalTime();
     }
 
+    @Nullable
+    public static ZonedDateTime zonedDateTime(@Nullable Date date) {
+        return zonedDateTime(date, null);
+    }
+
+    @Nullable
+    public static ZonedDateTime zonedDateTime(@Nullable Date date, @Nullable ZoneId zone) {
+        if (date == null) {
+            return null;
+        } else {
+            return ZonedDateTime.ofInstant(date.toInstant(), (zone != null) ? zone : ZoneId.systemDefault());
+        }
+    }
+
     public static <T> T nullOr(Object o, Supplier<T> supplier) {
         return (o == null) ? null : supplier.get();
     }
