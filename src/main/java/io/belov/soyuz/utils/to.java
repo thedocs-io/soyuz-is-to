@@ -221,6 +221,30 @@ public class to {
         return sb.toString();
     }
 
+    public static String s(long l) {
+        return String.valueOf(l);
+    }
+
+    public static String s(int i) {
+        return String.valueOf(i);
+    }
+
+    public static String s(char c) {
+        return String.valueOf(c);
+    }
+
+    public static String s(boolean b) {
+        return String.valueOf(b);
+    }
+
+    public static String s(float f) {
+        return String.valueOf(f);
+    }
+
+    public String s(double d) {
+        return String.valueOf(d);
+    }
+
     public static String log(String event) {
         return log(event, null);
     }
