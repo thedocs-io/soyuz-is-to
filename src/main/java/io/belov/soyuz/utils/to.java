@@ -17,6 +17,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.time.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -674,6 +675,14 @@ public class to {
         t.setDaemon(true);
 
         return t;
+    }
+
+    public static ToParallel parallel() {
+        return parallel(null);
+    }
+
+    public static ToParallel parallel(ExecutorService pool) {
+        return new ToParallel(pool);
     }
 
     private static Integer doIntConvert(BigDecimal val) {
