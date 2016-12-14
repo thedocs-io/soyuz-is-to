@@ -4,7 +4,7 @@ apply plugin: "idea"
 apply plugin: "groovy"
 
 group = "io.belov.soyuz"
-version = "1.44"
+version = "1.45"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -12,7 +12,7 @@ targetCompatibility = 1.8
 repositories {
     mavenCentral()
     maven {
-        url "https://mymavenrepo.com/repo/SbfutqGx3LM3VdY6CLKu/"
+        url "https://mymavenrepo.com/repo/${myMavenRepoReadToken}/"
     }
 }
 

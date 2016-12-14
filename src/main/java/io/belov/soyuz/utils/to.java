@@ -57,16 +57,38 @@ public class to {
         return integer(val, null);
     }
 
-    public static Long l(Object val, Long defaultValue) {
-        return l(val, defaultValue, true);
+    @Nullable
+    public static Float f(@Nullable Object val) {
+        if (val == null) {
+            return null;
+        } else if (val instanceof Float) {
+            return (Float) val;
+        } else {
+            return f(val.toString(), null);
+        }
     }
 
-    public static Long l(Object val, Long defaultValue, boolean silent) {
+    @Nullable
+    public static Float f(@Nullable String val) {
+        return f(val, null);
+    }
+
+    @Nullable
+    public static Float f(@Nullable Object val, Float defaultValue) {
+        return f(val, defaultValue, true);
+    }
+
+    @Nullable
+    public static Float f(@Nullable Object val, Float defaultValue, boolean silent) {
         if (val != null) {
             try {
-                return doLongConvert(val);
+                if (val instanceof Float) {
+                    return (Float) val;
+                } else {
+                    return doFloatConvert(val);
+                }
             } catch (Exception e) {
-                if (!silent) log.warn("Cannot convert " + val + " to long", e);
+                if (!silent) log.warn("Cannot convert " + val + " to float", e);
             }
         }
 
@@ -74,17 +96,31 @@ public class to {
     }
 
     public static Long l(Object val) {
-        if (val == null) {
-            return null;
-        } else if (val instanceof Long) {
-            return (Long) val;
-        } else {
-            return l(val.toString(), null);
-        }
+        return l(val, null);
     }
 
     public static Long l(String val) {
         return l(val, null);
+    }
+
+    public static Long l(Object val, Long defaultValue) {
+        return l(val, defaultValue, true);
+    }
+
+    public static Long l(Object val, Long defaultValue, boolean silent) {
+        if (val != null) {
+            try {
+                if (val instanceof Long) {
+                    return (Long) val;
+                } else {
+                    return doLongConvert(val);
+                }
+            } catch (Exception e) {
+                if (!silent) log.warn("Cannot convert " + val + " to long", e);
+            }
+        }
+
+        return defaultValue;
     }
 
     public static Boolean b(String val) {
@@ -715,6 +751,10 @@ public class to {
 
     private static Long doLongConvert(Object val) {
         return Long.parseLong(val.toString());
+    }
+
+    private static Float doFloatConvert(Object val) {
+        return Float.parseFloat(val.toString());
     }
 
     private static Boolean doBooleanConvert(String val) {
