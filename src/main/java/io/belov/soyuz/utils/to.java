@@ -532,6 +532,20 @@ public class to {
         }
     }
 
+    public static <V> Set<V> set(Iterable<V> values) {
+        if (values instanceof Set) {
+            return (Set<V>) values;
+        } else {
+            Set<V> answer = new HashSet<>();
+
+            for (V value : values) {
+                answer.add(value);
+            }
+
+            return answer;
+        }
+    }
+
     public static <T, V> Set<T> set(Collection<V> values, Function<V, T> mapper) {
         Set<T> answer = new HashSet<T>();
 
