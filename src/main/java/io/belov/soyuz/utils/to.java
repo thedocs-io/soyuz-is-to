@@ -668,6 +668,10 @@ public class to {
         return (o != null) ? o : "";
     }
 
+    public static <T> Iterable<T> orDefault(Iterable<T> o) {
+        return (o != null) ? o : new ArrayList<>();
+    }
+
     public static <T> List<T> orDefault(List<T> o) {
         return (o != null) ? o : new ArrayList<>();
     }
