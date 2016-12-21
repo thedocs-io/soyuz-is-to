@@ -664,6 +664,22 @@ public class to {
         return (o != null) ? o : otherwise;
     }
 
+    public static String orDefault(String o) {
+        return (o != null) ? o : "";
+    }
+
+    public static <T> List<T> orDefault(List<T> o) {
+        return (o != null) ? o : new ArrayList<>();
+    }
+
+    public static <T> Set<T> orDefault(Set<T> o) {
+        return (o != null) ? o : new HashSet<>();
+    }
+
+    public static <K, V> Map<K, V> orDefault(Map<K, V> o) {
+        return (o != null) ? o : new HashMap<>();
+    }
+
     public static <T> Stream<T> stream(T[] array) {
         return Arrays.stream(array);
     }
