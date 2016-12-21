@@ -672,6 +672,10 @@ public class to {
         return (o != null) ? o : new ArrayList<>();
     }
 
+    public static <T> Collection<T> orDefault(Collection<T> o) {
+        return (o != null) ? o : new ArrayList<>();
+    }
+
     public static <T> List<T> orDefault(List<T> o) {
         return (o != null) ? o : new ArrayList<>();
     }
