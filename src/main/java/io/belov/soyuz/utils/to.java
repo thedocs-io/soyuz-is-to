@@ -520,8 +520,11 @@ public class to {
         return answer;
     }
 
-    public static <V> Set<V> set(Collection<V> values) {
-        if (values instanceof Set) {
+    @Nullable
+    public static <V> Set<V> set(@Nullable Collection<V> values) {
+        if (values == null) {
+            return null;
+        } else if (values instanceof Set) {
             return (Set<V>) values;
         } else {
             Set<V> answer = new HashSet<>();
@@ -532,8 +535,11 @@ public class to {
         }
     }
 
-    public static <V> Set<V> set(Iterable<V> values) {
-        if (values instanceof Set) {
+    @Nullable
+    public static <V> Set<V> set(@Nullable Iterable<V> values) {
+        if (values == null) {
+            return null;
+        } else if (values instanceof Set) {
             return (Set<V>) values;
         } else {
             Set<V> answer = new HashSet<>();
@@ -546,7 +552,10 @@ public class to {
         }
     }
 
-    public static <T, V> Set<T> set(Collection<V> values, Function<V, T> mapper) {
+    @Nullable
+    public static <T, V> Set<T> set(@Nullable Collection<V> values, Function<V, T> mapper) {
+        if (values == null) return null;
+
         Set<T> answer = new HashSet<T>();
 
         for (V value : values) {
