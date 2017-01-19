@@ -278,7 +278,7 @@ public class to {
         return String.valueOf(f);
     }
 
-    public String s(double d) {
+    public static String s(double d) {
         return String.valueOf(d);
     }
 
