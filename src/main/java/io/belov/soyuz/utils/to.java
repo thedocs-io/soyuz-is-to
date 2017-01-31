@@ -735,10 +735,18 @@ public class to {
     }
 
     public static Thread daemonForever(final String threadName, final long delayInMillis, final Runnable runnable) {
+        return daemonForever(threadName, delayInMillis, runnable, 0);
+    }
+
+    public static Thread daemonForever(final String threadName, final long delayInMillis, final Runnable runnable, long startDelayInMillis) {
         Runnable forever = new Runnable() {
             @Override
             public void run() {
                 try {
+                    if (startDelayInMillis > 0) {
+                        Thread.sleep(startDelayInMillis);
+                    }
+
                     while (true) {
                         runnable.run();
 
