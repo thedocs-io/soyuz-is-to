@@ -636,15 +636,27 @@ public class to {
 
     @Nullable
     public static LocalDate localDate(@Nullable Date date) {
-        return (date == null) ? null : localDate(date.getTime());
+        return localDate(date, ZoneId.systemDefault());
+    }
+
+    public static LocalDate localDate(@Nullable Date date, ZoneId zone) {
+        return (date == null) ? null : localDate(date.getTime(), zone);
     }
 
     public static LocalDate localDate(long millis) {
-        return localDateTime(millis).toLocalDate();
+        return localDate(millis, ZoneId.systemDefault());
+    }
+
+    public static LocalDate localDate(long millis, ZoneId zone) {
+        return localDateTime(millis, zone).toLocalDate();
     }
 
     public static LocalTime localTime(long millis) {
-        return localDateTime(millis).toLocalTime();
+        return localTime(millis, ZoneId.systemDefault());
+    }
+
+    public static LocalTime localTime(long millis, ZoneId zone) {
+        return localDateTime(millis, zone).toLocalTime();
     }
 
     @Nullable
