@@ -4,6 +4,10 @@ import io.belov.soyuz.utils.to as To;
 
 import spock.lang.Specification
 
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.function.BiFunction
 
 /**
@@ -70,7 +74,7 @@ class ToSpec extends Specification {
         when:
         def a = [hello: 1, world: 2]
         def b = To.map(a, { k, v ->
-            return v*2
+            return v * 2
         } as BiFunction)
 
         then:
@@ -168,5 +172,17 @@ class ToSpec extends Specification {
 
         then:
         assert To.list(a) == [1, 3, 2]
+    }
+
+    def "should convert zonedDateTime <-> date"() {
+        when:
+        def localDate = LocalDate.of(2017, 02, 10)
+        def localTime = LocalTime.of(12, 55, 32)
+        def zonedDateTime = ZonedDateTime.of(localDate, localTime, ZoneId.systemDefault())
+        def date = new Date(2017 - 1900, 02 - 1, 10, 12, 55, 32)
+
+        then:
+        assert To.date(zonedDateTime) == date
+        assert To.zonedDateTime(date) == zonedDateTime
     }
 }
