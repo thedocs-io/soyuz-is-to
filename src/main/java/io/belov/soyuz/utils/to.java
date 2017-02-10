@@ -600,6 +600,15 @@ public class to {
     }
 
     @Nullable
+    public static Date date(@Nullable Instant instant) {
+        if (instant == null) {
+            return null;
+        } else {
+            return new Date(instant.toEpochMilli());
+        }
+    }
+
+    @Nullable
     public static Date date(@Nullable LocalDateTime localDateTime, ZoneId zone) {
         return (localDateTime == null) ? null : date(localDateTime.atZone(zone));
     }
@@ -670,6 +679,15 @@ public class to {
             return null;
         } else {
             return ZonedDateTime.ofInstant(date.toInstant(), (zone != null) ? zone : ZoneId.systemDefault());
+        }
+    }
+
+    @Nullable
+    public static Instant instant(@Nullable Date date) {
+        if (date == null) {
+            return null;
+        } else {
+            return date.toInstant();
         }
     }
 
