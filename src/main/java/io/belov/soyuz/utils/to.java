@@ -405,6 +405,110 @@ public class to {
         return answer;
     }
 
+    public static <K, V> Map<K, V> linkedMap(K k1, V v1) {
+        Map<K, V> a = new LinkedHashMap<K, V>();
+
+        a.put(k1, v1);
+
+        return a;
+    }
+
+    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2) {
+        Map<K, V> a = new LinkedHashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+
+        return a;
+    }
+
+    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2, K k3, V v3) {
+        Map<K, V> a = new LinkedHashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+        a.put(k3, v3);
+
+        return a;
+    }
+
+    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+        Map<K, V> a = new LinkedHashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+        a.put(k3, v3);
+        a.put(k4, v4);
+
+        return a;
+    }
+
+    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+        Map<K, V> a = new LinkedHashMap<K, V>();
+
+        a.put(k1, v1);
+        a.put(k2, v2);
+        a.put(k3, v3);
+        a.put(k4, v4);
+        a.put(k5, v5);
+
+        return a;
+    }
+
+    public static Map<String, String> linkedMap(String... params) {
+        return fillMapWithParams(new LinkedHashMap<String, String>(), params);
+    }
+
+    public static Map<String, String> linkedMap(Map<String, String> source, String... params) {
+        return fillMapWithParams(new LinkedHashMap<>(source), params);
+    }
+
+    public static Map linkedMap(Object... params) {
+        return fillMapWithParams(new LinkedHashMap(), params);
+    }
+
+    public static Map linkedMap(Map source, Object... params) {
+        return fillMapWithParams(new LinkedHashMap(source), params);
+    }
+
+    public static <K, V, R> Map<K, R> linkedMap(Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
+        Map<K, R> answer = new LinkedHashMap<K, R>();
+
+        for (Map.Entry<K, V> e : source.entrySet()) {
+            Map<K, R> entry = mapper.apply(e);
+
+            if (entry != null) {
+                answer.putAll(entry);
+            }
+        }
+
+        return answer;
+    }
+
+    public static <K, V, R> Map<K, R> linkedMap(Map<K, V> source, BiFunction<K, V, R> mapper) {
+        Map<K, R> answer = new LinkedHashMap<K, R>();
+
+        for (Map.Entry<K, V> e : source.entrySet()) {
+            answer.put(e.getKey(), mapper.apply(e.getKey(), e.getValue()));
+        }
+
+        return answer;
+    }
+
+    public static <T, K> Map<K, T> linkedMap(Iterable<T> source, Function<T, K> keyFunction) {
+        return linkedMap(source, keyFunction, (s) -> s);
+    }
+
+    public static <T, K, V> Map<K, V> linkedMap(Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        Map<K, V> answer = new LinkedHashMap<K, V>();
+
+        for (T e : source) {
+            answer.put(keyFunction.apply(e), valueFunction.apply(e));
+        }
+
+        return answer;
+    }
+
     private static <K, V> Map<K, V> fillMapWithParams(Map map, Object... params) {
         if (params.length % 2 != 0) {
             throw new IllegalArgumentException("Params number should be even");
