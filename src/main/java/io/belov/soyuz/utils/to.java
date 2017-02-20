@@ -405,7 +405,7 @@ public class to {
         return answer;
     }
 
-    public static <K, V> Map<K, V> linkedMap(K k1, V v1) {
+    public static <K, V> Map<K, V> linkedHashMap(K k1, V v1) {
         Map<K, V> a = new LinkedHashMap<K, V>();
 
         a.put(k1, v1);
@@ -413,7 +413,7 @@ public class to {
         return a;
     }
 
-    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2) {
+    public static <K, V> Map<K, V> linkedHashMap(K k1, V v1, K k2, V v2) {
         Map<K, V> a = new LinkedHashMap<K, V>();
 
         a.put(k1, v1);
@@ -422,7 +422,7 @@ public class to {
         return a;
     }
 
-    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2, K k3, V v3) {
+    public static <K, V> Map<K, V> linkedHashMap(K k1, V v1, K k2, V v2, K k3, V v3) {
         Map<K, V> a = new LinkedHashMap<K, V>();
 
         a.put(k1, v1);
@@ -432,7 +432,7 @@ public class to {
         return a;
     }
 
-    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+    public static <K, V> Map<K, V> linkedHashMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         Map<K, V> a = new LinkedHashMap<K, V>();
 
         a.put(k1, v1);
@@ -443,7 +443,7 @@ public class to {
         return a;
     }
 
-    public static <K, V> Map<K, V> linkedMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    public static <K, V> Map<K, V> linkedHashMap(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         Map<K, V> a = new LinkedHashMap<K, V>();
 
         a.put(k1, v1);
@@ -455,23 +455,23 @@ public class to {
         return a;
     }
 
-    public static Map<String, String> linkedMap(String... params) {
+    public static Map<String, String> linkedHashMap(String... params) {
         return fillMapWithParams(new LinkedHashMap<String, String>(), params);
     }
 
-    public static Map<String, String> linkedMap(Map<String, String> source, String... params) {
+    public static Map<String, String> linkedHashMap(Map<String, String> source, String... params) {
         return fillMapWithParams(new LinkedHashMap<>(source), params);
     }
 
-    public static Map linkedMap(Object... params) {
+    public static Map linkedHashMap(Object... params) {
         return fillMapWithParams(new LinkedHashMap(), params);
     }
 
-    public static Map linkedMap(Map source, Object... params) {
+    public static Map linkedHashMap(Map source, Object... params) {
         return fillMapWithParams(new LinkedHashMap(source), params);
     }
 
-    public static <K, V, R> Map<K, R> linkedMap(Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
+    public static <K, V, R> Map<K, R> linkedHashMap(Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
         Map<K, R> answer = new LinkedHashMap<K, R>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
@@ -485,7 +485,7 @@ public class to {
         return answer;
     }
 
-    public static <K, V, R> Map<K, R> linkedMap(Map<K, V> source, BiFunction<K, V, R> mapper) {
+    public static <K, V, R> Map<K, R> linkedHashMap(Map<K, V> source, BiFunction<K, V, R> mapper) {
         Map<K, R> answer = new LinkedHashMap<K, R>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
@@ -495,11 +495,11 @@ public class to {
         return answer;
     }
 
-    public static <T, K> Map<K, T> linkedMap(Iterable<T> source, Function<T, K> keyFunction) {
-        return linkedMap(source, keyFunction, (s) -> s);
+    public static <T, K> Map<K, T> linkedHashMap(Iterable<T> source, Function<T, K> keyFunction) {
+        return linkedHashMap(source, keyFunction, (s) -> s);
     }
 
-    public static <T, K, V> Map<K, V> linkedMap(Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
+    public static <T, K, V> Map<K, V> linkedHashMap(Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
         Map<K, V> answer = new LinkedHashMap<K, V>();
 
         for (T e : source) {

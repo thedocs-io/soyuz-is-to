@@ -190,34 +190,34 @@ class ToSpec extends Specification {
         def a
 
         when:
-        a = To.linkedMap(1, "1")
+        a = To.linkedHashMap(1, "1")
 
         then:
         assert a == [(1): "1"]
 
         when:
-        a = To.linkedMap(1, "1", 2, "2")
+        a = To.linkedHashMap(1, "1", 2, "2")
 
         then:
         assert a == [(1): "1", (2): "2"]
         assert a.keySet() == [1, 2] as LinkedHashSet
 
         when:
-        a = To.linkedMap(1, "1", 2, "2", 3, "3")
+        a = To.linkedHashMap(1, "1", 2, "2", 3, "3")
 
         then:
         assert a == [(1): "1", (2): "2", (3): "3"]
         assert a.keySet() == [1, 2, 3] as LinkedHashSet
 
         when:
-        a = To.linkedMap(1, "1", 2, "2", 3, "3", 4, "4")
+        a = To.linkedHashMap(1, "1", 2, "2", 3, "3", 4, "4")
 
         then:
         assert a == [(1): "1", (2): "2", (3): "3", (4): "4"]
         assert a.keySet() == [1, 2, 3, 4] as LinkedHashSet
 
         when:
-        a = To.linkedMap(1, "1", 2, "2", 3, "3", 4, "4", 5, "5")
+        a = To.linkedHashMap(1, "1", 2, "2", 3, "3", 4, "4", 5, "5")
 
         then:
         assert a == [(1): "1", (2): "2", (3): "3", (4): "4", (5): "5"]
@@ -226,7 +226,7 @@ class ToSpec extends Specification {
 
     def "should convert params to linked map"() {
         when:
-        def a = To.linkedMap(1, "1", "2", 2, "3", 3, "4", 4, "5", 5, "6", 6)
+        def a = To.linkedHashMap(1, "1", "2", 2, "3", 3, "4", 4, "5", 5, "6", 6)
 
         then:
         assert a == [(1): "1", "2": 2, "3": 3, "4": 4, "5": 5, "6": 6]
@@ -236,7 +236,7 @@ class ToSpec extends Specification {
     def "should convert linked map"() {
         when:
         def a = [hello: 1, world: 2]
-        def b = To.linkedMap(a, { k, v ->
+        def b = To.linkedHashMap(a, { k, v ->
             return v * 2
         } as BiFunction)
 
@@ -248,7 +248,7 @@ class ToSpec extends Specification {
     def "should use values from source linked map"() {
         when:
         def source = [hello: "world"]
-        def a = To.linkedMap(source, "again", "=)")
+        def a = To.linkedHashMap(source, "again", "=)")
 
         then:
         assert a == [hello: "world", again: "=)"]
@@ -258,7 +258,7 @@ class ToSpec extends Specification {
 
     def "shouldn't convert to linked map with odd params number"() {
         when:
-        To.linkedMap("a")
+        To.linkedHashMap("a")
 
         then:
         thrown(IllegalArgumentException)
