@@ -301,6 +301,10 @@ public class to {
         return (object == null) ? null : func.apply(object);
     }
 
+    public static <K, V> Map<K, V> map() {
+        return new HashMap<>();
+    }
+
     public static <K, V> Map<K, V> map(K k1, V v1) {
         Map<K, V> a = new HashMap<K, V>();
 
