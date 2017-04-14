@@ -4,6 +4,7 @@
  */
 package io.belov.soyuz.utils;
 
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,11 +28,11 @@ public class to {
 
     private static final Logger log = LoggerFactory.getLogger(to.class);
 
-    public static Integer integer(Object val, Integer defaultValue) {
-        return integer(val, defaultValue, true);
+    public static Integer Integer(Object val, Integer defaultValue) {
+        return Integer(val, defaultValue, true);
     }
 
-    public static Integer integer(Object val, Integer defaultValue, boolean silent) {
+    public static Integer Integer(Object val, Integer defaultValue, boolean silent) {
         if (val != null) {
             try {
                 return doIntConvert(val);
@@ -43,43 +44,43 @@ public class to {
         return defaultValue;
     }
 
-    public static Integer integer(Object val) {
+    public static Integer Integer(Object val) {
         if (val == null) {
             return null;
         } else if (val instanceof Integer) {
             return (Integer) val;
         } else {
-            return integer(val.toString(), null);
+            return Integer(val.toString(), null);
         }
     }
 
-    public static Integer integer(String val) {
-        return integer(val, null);
+    public static Integer Integer(String val) {
+        return Integer(val, null);
     }
 
     @Nullable
-    public static Float f(@Nullable Object val) {
+    public static Float Float(@Nullable Object val) {
         if (val == null) {
             return null;
         } else if (val instanceof Float) {
             return (Float) val;
         } else {
-            return f(val.toString(), null);
+            return Float(val.toString(), null);
         }
     }
 
     @Nullable
-    public static Float f(@Nullable String val) {
-        return f(val, null);
+    public static Float Float(@Nullable String val) {
+        return Float(val, null);
     }
 
     @Nullable
-    public static Float f(@Nullable Object val, Float defaultValue) {
-        return f(val, defaultValue, true);
+    public static Float Float(@Nullable Object val, Float defaultValue) {
+        return Float(val, defaultValue, true);
     }
 
     @Nullable
-    public static Float f(@Nullable Object val, Float defaultValue, boolean silent) {
+    public static Float Float(@Nullable Object val, Float defaultValue, boolean silent) {
         if (val != null) {
             try {
                 if (val instanceof Float) {
@@ -95,19 +96,19 @@ public class to {
         return defaultValue;
     }
 
-    public static Long l(Object val) {
-        return l(val, null);
+    public static Long Long(Object val) {
+        return Long(val, null);
     }
 
-    public static Long l(String val) {
-        return l(val, null);
+    public static Long Long(String val) {
+        return Long(val, null);
     }
 
-    public static Long l(Object val, Long defaultValue) {
-        return l(val, defaultValue, true);
+    public static Long Long(Object val, Long defaultValue) {
+        return Long(val, defaultValue, true);
     }
 
-    public static Long l(Object val, Long defaultValue, boolean silent) {
+    public static Long Long(Object val, Long defaultValue, boolean silent) {
         if (val != null) {
             try {
                 if (val instanceof Long) {
@@ -123,15 +124,15 @@ public class to {
         return defaultValue;
     }
 
-    public static Boolean b(String val) {
-        return b(val, null);
+    public static Boolean Boolean(String val) {
+        return Boolean(val, null);
     }
 
-    public static Boolean b(String val, Boolean defaultValue) {
-        return b(val, defaultValue, true);
+    public static Boolean Boolean(String val, Boolean defaultValue) {
+        return Boolean(val, defaultValue, true);
     }
 
-    public static Boolean b(Object val, Boolean defaultValue, boolean silent) {
+    public static Boolean Boolean(Object val, Boolean defaultValue, boolean silent) {
         if (val != null) {
             try {
                 return doBooleanConvert(val);
@@ -152,12 +153,9 @@ public class to {
         }
     }
 
+    @SneakyThrows
     public static URI uriOrException(String url) {
-        try {
-            return new URI(url);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        return new URI(url);
     }
 
     @Nullable
