@@ -145,87 +145,6 @@ public class to {
     }
 
     @Nullable
-    public static URI uri(String url) {
-        try {
-            return new URI(url);
-        } catch (URISyntaxException e) {
-            return null;
-        }
-    }
-
-    @SneakyThrows
-    public static URI uriOrException(String url) {
-        return new URI(url);
-    }
-
-    @Nullable
-    public static URL url(String url) {
-        try {
-            return new URL(url);
-        } catch (MalformedURLException e) {
-            return null;
-        }
-    }
-
-    public static URL urlOrException(String url) {
-        try {
-            return new URL(url);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static Object[] arr(Object... objects) {
-        return objects;
-    }
-
-    public static <V> V[] arr(Collection<V> objects, Class<V> clazz) {
-        return objects.toArray((V[]) Array.newInstance(clazz, objects.size()));
-    }
-
-    public static <V> Object[] arr(@Nullable Collection<V> objects, @Nullable Function<V, Object> mapper) {
-        if (objects == null) return new Object[0];
-
-        int i = 0;
-        int size = objects.size();
-        Object[] answer = new Object[size];
-
-        for (V value : objects) {
-            answer[i] = (mapper == null) ? value : mapper.apply(value);
-            i++;
-        }
-
-        return answer;
-    }
-
-    public static String[] arrOfStrings(@Nullable Collection<String> collection) {
-        return (collection == null) ? new String[0] : collection.stream().toArray(String[]::new);
-    }
-
-    public static Integer[] arrOfIntegers(@Nullable Collection<Integer> collection) {
-        return (collection == null) ? new Integer[0] : collection.stream().toArray(Integer[]::new);
-    }
-
-    public static Long[] arrOfLongs(@Nullable Collection<? extends Number> collection) {
-        return (collection == null) ? new Long[0] : collection.stream().toArray(Long[]::new);
-    }
-
-    public static int[] arrOfSimpleInts(@Nullable Collection<Integer> collection) {
-        if (collection == null) return new int[0];
-
-        int i = 0;
-        int size = collection.size();
-        int[] answer = new int[size];
-
-        for (Integer value : collection) {
-            answer[i] = value;
-            i++;
-        }
-
-        return answer;
-    }
-
-    @Nullable
     public static String s(@Nullable Object s) {
         return (s == null) ? null : s.toString();
     }
@@ -280,23 +199,32 @@ public class to {
         return String.valueOf(d);
     }
 
-    public static String log(String event) {
-        return log(event, null);
+    @Nullable
+    public static URI uri(String url) {
+        try {
+            return new URI(url);
+        } catch (URISyntaxException e) {
+            return null;
+        }
     }
 
-    public static String log(String event, Map params) {
-        String answer = "[" + event + "]";
-
-        if (params != null) {
-            answer += params;
-        }
-
-        return answer;
+    @SneakyThrows
+    public static URI uriOrException(String url) {
+        return new URI(url);
     }
 
     @Nullable
-    public static <T, V> V valueOrNull(@Nullable T object, Function<T, V> func) {
-        return (object == null) ? null : func.apply(object);
+    public static URL url(String url) {
+        try {
+            return new URL(url);
+        } catch (MalformedURLException e) {
+            return null;
+        }
+    }
+
+    @SneakyThrows
+    public static URL urlOrException(String url) {
+        return new URL(url);
     }
 
     public static <K, V> Map<K, V> map() {
@@ -523,12 +451,6 @@ public class to {
         return map;
     }
 
-    public static <T> List<T> list(T value) {
-        List<T> answer = new ArrayList<T>();
-        answer.add(value);
-        return answer;
-    }
-
     @Nullable
     public static <T> List<T> list(@Nullable Iterator<T> iterator) {
         return list(iterator, 10);
@@ -552,6 +474,12 @@ public class to {
 
             return list;
         }
+    }
+
+    public static <T> List<T> list(T value) {
+        List<T> answer = new ArrayList<T>();
+        answer.add(value);
+        return answer;
     }
 
     public static <T> List<T> list(T... value) {
@@ -795,6 +723,11 @@ public class to {
         } else {
             return date.toInstant();
         }
+    }
+
+    @Nullable
+    public static <T, V> V valueOrNull(@Nullable T object, Function<T, V> func) {
+        return (object == null) ? null : func.apply(object);
     }
 
     public static <T> T nullOr(Object o, Supplier<T> supplier) {
