@@ -45,4 +45,6 @@ dependencies {
     testCompile "org.codehaus.groovy:groovy-all:2.3.6"
     testCompile "org.spockframework:spock-core:1.0-groovy-2.3"
     testCompile "com.google.guava:guava:18.0"
+    testCompile "org.projectlombok:lombok:1.16.8"
+
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -233,7 +234,7 @@ public class to {
 
     @Nullable
     public static String String(@Nullable String text, Iterable params) {
-        if (text != null) {
+        if (text == null) {
             return null;
         }
 
@@ -252,7 +253,7 @@ public class to {
      */
     @Nullable
     public static String String(@Nullable String text, Map<String, ?> params) {
-        if (text != null) {
+        if (text == null) {
             return null;
         }
 
@@ -296,6 +297,51 @@ public class to {
     }
 
     // ARRAYS
+
+    public static Object[] arr(Object... objects) {
+        return objects;
+    }
+
+    public static <V> V[] arr(@Nullable Collection<V> objects, Class<V> clazz) {
+        if (objects == null) {
+            return (V[]) Array.newInstance(clazz, 0);
+        } else {
+            return objects.toArray((V[]) Array.newInstance(clazz, objects.size()));
+        }
+    }
+
+    public static <V> Object[] arr(@Nullable Collection<V> objects, @Nullable Function<V, Object> mapper) {
+        return to.arr(objects, Object.class, (mapper != null) ? mapper : r -> (Object) r);
+    }
+
+    public static <V, R> R[] arr(@Nullable Collection<V> objects, Class<R> clazz, Function<V, R> mapper) {
+        if (objects == null) {
+            return to.arr(null, clazz);
+        }
+
+        int i = 0;
+        int size = objects.size();
+        R[] answer = (R[]) Array.newInstance(clazz, size);
+
+        for (V value : objects) {
+            answer[i] = mapper.apply(value);
+            i++;
+        }
+
+        return answer;
+    }
+
+    public static String[] arrOfStrings(@Nullable Collection<String> collection) {
+        return (collection == null) ? new String[0] : collection.stream().toArray(String[]::new);
+    }
+
+    public static Integer[] arrOfIntegers(@Nullable Collection<? extends Number> collection) {
+        return (collection == null) ? new Integer[0] : collection.stream().toArray(Integer[]::new);
+    }
+
+    public static Long[] arrOfLongs(@Nullable Collection<? extends Number> collection) {
+        return (collection == null) ? new Long[0] : collection.stream().toArray(Long[]::new);
+    }
 
     // MAPS
 
@@ -499,7 +545,7 @@ public class to {
 
     @Nullable
     public static <K, V, R> Map<K, R> linkedHashMap(@Nullable Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
-        if (source != null) {
+        if (source == null) {
             return null;
         }
 

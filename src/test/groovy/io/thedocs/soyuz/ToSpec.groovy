@@ -98,17 +98,6 @@ class ToSpec extends Specification {
         thrown(IllegalArgumentException)
     }
 
-    def "should return log message"() {
-        when:
-        def doesNotMatter
-
-        then:
-        assert To.log("hello") == "[hello]"
-
-        then:
-        assert To.log("world", To.map("a", "b", "c", "d")) == "[world]{a=b, c=d}"
-    }
-
     def "should construct string"() {
         when:
         def s = To.s("map {1} and int {0}", 5, [hello: "world"])
