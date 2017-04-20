@@ -28,6 +28,22 @@ public class to {
 
     private static final Logger log = LoggerFactory.getLogger(to.class);
 
+    @Nullable
+    public static Integer Integer(Object val) {
+        if (val == null) {
+            return null;
+        } else if (val instanceof Integer) {
+            return (Integer) val;
+        } else {
+            return Integer(val.toString(), null);
+        }
+    }
+
+    @Nullable
+    public static Integer Integer(String val) {
+        return Integer(val, null);
+    }
+
     public static Integer Integer(Object val, Integer defaultValue) {
         return Integer(val, defaultValue, true);
     }
@@ -42,20 +58,6 @@ public class to {
         }
 
         return defaultValue;
-    }
-
-    public static Integer Integer(Object val) {
-        if (val == null) {
-            return null;
-        } else if (val instanceof Integer) {
-            return (Integer) val;
-        } else {
-            return Integer(val.toString(), null);
-        }
-    }
-
-    public static Integer Integer(String val) {
-        return Integer(val, null);
     }
 
     @Nullable
@@ -74,12 +76,10 @@ public class to {
         return Float(val, null);
     }
 
-    @Nullable
     public static Float Float(@Nullable Object val, Float defaultValue) {
         return Float(val, defaultValue, true);
     }
 
-    @Nullable
     public static Float Float(@Nullable Object val, Float defaultValue, boolean silent) {
         if (val != null) {
             try {
@@ -96,10 +96,12 @@ public class to {
         return defaultValue;
     }
 
+    @Nullable
     public static Long Long(Object val) {
         return Long(val, null);
     }
 
+    @Nullable
     public static Long Long(String val) {
         return Long(val, null);
     }
@@ -124,6 +126,7 @@ public class to {
         return defaultValue;
     }
 
+    @Nullable
     public static Boolean Boolean(String val) {
         return Boolean(val, null);
     }
@@ -145,23 +148,105 @@ public class to {
     }
 
     @Nullable
-    public static String s(@Nullable Object s) {
-        return (s == null) ? null : s.toString();
+    public static String String(@Nullable Object object) {
+        return (object == null) ? null : object.toString();
     }
 
-    public static String s(String s, Object... params) {
-        return MessageFormat.format(s, params);
+    @Nullable
+    public static String s(@Nullable Object object) {
+        return to.String(object);
     }
 
-    public static String s(String s, Map<String, ?> params) {
+    public static String String(long longPrimitive) {
+        return String.valueOf(longPrimitive);
+    }
+
+    public static String s(long longPrimitive) {
+        return to.String(longPrimitive);
+    }
+
+    public static String String(int intPrimitive) {
+        return String.valueOf(intPrimitive);
+    }
+
+    public static String s(int intPrimitive) {
+        return to.String(intPrimitive);
+    }
+
+    public static String String(char charPrimitive) {
+        return String.valueOf(charPrimitive);
+    }
+
+    public static String s(char charPrimitive) {
+        return to.String(charPrimitive);
+    }
+
+    public static String String(boolean booleanPrimitive) {
+        return String.valueOf(booleanPrimitive);
+    }
+
+    public static String s(boolean booleanPrimitive) {
+        return to.String(booleanPrimitive);
+    }
+
+    public static String String(float floatPrimitive) {
+        return String.valueOf(floatPrimitive);
+    }
+
+    public static String s(float floatPrimitive) {
+        return to.String(floatPrimitive);
+    }
+
+    public static String String(double doublePrimitive) {
+        return String.valueOf(doublePrimitive);
+    }
+
+    public static String s(double doublePrimitive) {
+        return to.String(doublePrimitive);
+    }
+
+    /**
+     * Replaces {} from {@code text} with {@code params}
+     * e.g. to.s("Hello {}", "World") -> Hello World
+     */
+    public static String String(String text, Object... params) {
+        //todo reimplement
+        return MessageFormat.format(text, params);
+    }
+
+    public static String s(String text, Object... params) {
+        return to.String(text, params);
+    }
+
+    public static String String(String text, Iterable params) {
+        //todo reimplement
+        return MessageFormat.format(text, params);
+    }
+
+    public static String s(String text, Iterable params) {
+        return to.String(text, params);
+    }
+
+    /**
+     * Replaces {PARAM_KEY} from {@code text} with {@code params}
+     * e.g. to.s("Hello {planet}", to.map("planet", "Earth")) -> Hello Earth
+     */
+    public static String String(String text, Map<String, ?> params) {
         for (Map.Entry<String, ?> e : params.entrySet()) {
-            s = s.replace("{" + e.getKey() + "}", e.getValue().toString());
+            text = text.replace("{" + e.getKey() + "}", e.getValue().toString());
         }
 
-        return s;
+        return text;
     }
 
-    public static String s(Iterable iterable, String separator) {
+    public static String s(String text, Map<String, ?> params) {
+        return to.String(text, params);
+    }
+
+    /**
+     * Joins {@code iterable} with {@code separator}
+     */
+    public static String String(Iterable iterable, String separator) {
         Iterator iterator = iterable.iterator();
         StringBuilder sb = new StringBuilder();
 
@@ -175,57 +260,13 @@ public class to {
         return sb.toString();
     }
 
-    public static String s(long l) {
-        return String.valueOf(l);
+    public static String s(Iterable iterable, String separator) {
+        return to.String(iterable, separator);
     }
 
-    public static String s(int i) {
-        return String.valueOf(i);
-    }
+    // ARRAYS
 
-    public static String s(char c) {
-        return String.valueOf(c);
-    }
-
-    public static String s(boolean b) {
-        return String.valueOf(b);
-    }
-
-    public static String s(float f) {
-        return String.valueOf(f);
-    }
-
-    public static String s(double d) {
-        return String.valueOf(d);
-    }
-
-    @Nullable
-    public static URI uri(String url) {
-        try {
-            return new URI(url);
-        } catch (URISyntaxException e) {
-            return null;
-        }
-    }
-
-    @SneakyThrows
-    public static URI uriOrException(String url) {
-        return new URI(url);
-    }
-
-    @Nullable
-    public static URL url(String url) {
-        try {
-            return new URL(url);
-        } catch (MalformedURLException e) {
-            return null;
-        }
-    }
-
-    @SneakyThrows
-    public static URL urlOrException(String url) {
-        return new URL(url);
-    }
+    // MAPS
 
     public static <K, V> Map<K, V> map() {
         return new HashMap<>();
@@ -298,7 +339,7 @@ public class to {
     }
 
     public static <K, V, R> Map<K, R> map(Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
-        Map<K, R> answer = new HashMap<K, R>();
+        Map<K, R> answer = new HashMap<>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
             Map<K, R> entry = mapper.apply(e);
@@ -312,7 +353,7 @@ public class to {
     }
 
     public static <K, V, R> Map<K, R> map(Map<K, V> source, BiFunction<K, V, R> mapper) {
-        Map<K, R> answer = new HashMap<K, R>();
+        Map<K, R> answer = new HashMap<>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
             answer.put(e.getKey(), mapper.apply(e.getKey(), e.getValue()));
@@ -451,6 +492,32 @@ public class to {
         return map;
     }
 
+    // STREAM
+
+    public static <T> Stream<T> stream(T[] array) {
+        return Arrays.stream(array);
+    }
+
+    //http://stackoverflow.com/a/24511534
+    public static <T> Stream<T> stream(final Iterator<T> iterator) {
+        final Iterable<T> iterable = () -> iterator;
+        return StreamSupport.stream(iterable.spliterator(), false);
+    }
+
+    public static IntStream stream(int[] array) {
+        return Arrays.stream(array);
+    }
+
+    public static LongStream stream(long[] array) {
+        return Arrays.stream(array);
+    }
+
+    public static DoubleStream stream(double[] array) {
+        return Arrays.stream(array);
+    }
+
+    // COLLECTIONS
+
     @Nullable
     public static <T> List<T> list(@Nullable Iterator<T> iterator) {
         return list(iterator, 10);
@@ -477,13 +544,13 @@ public class to {
     }
 
     public static <T> List<T> list(T value) {
-        List<T> answer = new ArrayList<T>();
+        List<T> answer = new ArrayList<>();
         answer.add(value);
         return answer;
     }
 
     public static <T> List<T> list(T... value) {
-        List<T> answer = new ArrayList<T>();
+        List<T> answer = new ArrayList<>();
         Collections.addAll(answer, value);
         return answer;
     }
@@ -611,6 +678,8 @@ public class to {
         return answer;
     }
 
+    // DATE
+
     @Nullable
     public static Date date(@Nullable java.sql.Date dateSql) {
         return (dateSql) == null ? null : new Date(dateSql.getTime());
@@ -725,6 +794,38 @@ public class to {
         }
     }
 
+    // URL
+
+    @Nullable
+    public static URI uri(@Nullable String url) {
+        try {
+            return (url == null) ? null : new URI(url);
+        } catch (URISyntaxException e) {
+            return null;
+        }
+    }
+
+    @SneakyThrows
+    public static URI uriOrException(String url) {
+        return new URI(url);
+    }
+
+    @Nullable
+    public static URL url(@Nullable String url) {
+        try {
+            return (url == null) ? null : new URL(url);
+        } catch (MalformedURLException e) {
+            return null;
+        }
+    }
+
+    @SneakyThrows
+    public static URL urlOrException(String url) {
+        return new URL(url);
+    }
+
+    // FUNC
+
     @Nullable
     public static <T, V> V valueOrNull(@Nullable T object, Function<T, V> func) {
         return (object == null) ? null : func.apply(object);
@@ -766,27 +867,7 @@ public class to {
         return (o != null) ? o : new HashMap<>();
     }
 
-    public static <T> Stream<T> stream(T[] array) {
-        return Arrays.stream(array);
-    }
-
-    //http://stackoverflow.com/a/24511534
-    public static <T> Stream<T> stream(final Iterator<T> iterator) {
-        final Iterable<T> iterable = () -> iterator;
-        return StreamSupport.stream(iterable.spliterator(), false);
-    }
-
-    public static IntStream stream(int[] array) {
-        return Arrays.stream(array);
-    }
-
-    public static LongStream stream(long[] array) {
-        return Arrays.stream(array);
-    }
-
-    public static DoubleStream stream(double[] array) {
-        return Arrays.stream(array);
-    }
+    // THREAD
 
     public static Thread daemon(Runnable runnable) {
         return daemon(null, runnable);
