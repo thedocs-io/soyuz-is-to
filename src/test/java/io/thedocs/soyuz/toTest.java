@@ -1,6 +1,5 @@
 package io.thedocs.soyuz;
 
-import io.thedocs.soyuz.to;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,9 +11,6 @@ import java.util.Map;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by fbelov on 20.06.16.
- */
 public class toTest {
 
     @Test

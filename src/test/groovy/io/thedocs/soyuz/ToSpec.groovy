@@ -9,9 +9,6 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.function.BiFunction
 
-/**
- * Created by fbelov on 30.11.15.
- */
 class ToSpec extends Specification {
 
     def "should return empty list/set"() {
@@ -100,22 +97,46 @@ class ToSpec extends Specification {
 
     def "should construct string"() {
         when:
-        def s = To.s("map {1} and int {0}", 5, [hello: "world"])
+        def s = To.s("Hello {}", "World")
+
+        then:
+        assert s == "Hello World"
+
+        when:
+        s = To.s("map {} and int {}", [hello: "world"], 5)
 
         then:
         assert s == "map {hello=world} and int 5"
 
         when:
-        s = To.s("more {1} params", "abc", "efg", "qwe")
+        s = To.s("more {} params with {}", "efg", null)
 
         then:
-        assert s == "more efg params"
+        assert s == "more efg params with null"
 
         when:
-        s = To.s("less {1} params")
+        s = To.s("less {} params {}", 0.2)
 
         then:
-        assert s == "less {1} params"
+        assert s == "less 0.2 params {}"
+    }
+
+    def "should construct string from iterable"() {
+        expect:
+        assert To.s(source, (Iterable) params) == expected
+
+        where:
+        source | expected | params
+        "map {} and int {}" | "map {hello=world} and int 5" | [[hello: "world"], 5]
+    }
+
+    def "should construct string from collection"() {
+        expect:
+        assert To.s(source, (Collection) params) == expected
+
+        where:
+        source | expected | params
+        "map {} and int {}" | "map {hello=world} and int 5" | [[hello: "world"], 5]
     }
 
     def "should construct string from map"() {

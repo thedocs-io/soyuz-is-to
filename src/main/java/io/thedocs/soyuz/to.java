@@ -1,7 +1,3 @@
-/*
- * to
- * Copyright (c) 2012 Cybervision. All rights reserved.
- */
 package io.thedocs.soyuz;
 
 import lombok.SneakyThrows;
@@ -15,10 +11,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.time.*;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -223,12 +217,61 @@ public class to {
             return null;
         }
 
-        //todo reimplement
-        return MessageFormat.format(text, params);
+        char[] chars = text.toCharArray();
+        int paramsSize = params.length;
+        int paramsCurrent = 0;
+
+        StringBuilder sb = new StringBuilder();
+        char prev = '0';
+
+        for (char c : chars) {
+            if (c == '{') {
+                prev = c;
+            } else {
+                boolean replaced = false;
+
+                if (c == '}') {
+                    if (prev == '{') {
+                        if (paramsSize > paramsCurrent) {
+                            sb.append(params[paramsCurrent]);
+                            replaced = true;
+                        }
+                    }
+                }
+
+                if (replaced) {
+                    paramsCurrent++;
+                } else {
+                    if (prev == '{') {
+                        sb.append(prev);
+                    }
+
+                    sb.append(c);
+                }
+
+                prev = c;
+            }
+        }
+
+        return sb.toString();
     }
 
     @Nullable
     public static String s(@Nullable String text, Object... params) {
+        return to.String(text, params);
+    }
+
+    @Nullable
+    public static String String(@Nullable String text, Collection params) {
+        if (text == null) {
+            return null;
+        }
+
+        return to.String(text, to.arr(params, Object.class));
+    }
+
+    @Nullable
+    public static String s(@Nullable String text, Collection params) {
         return to.String(text, params);
     }
 
@@ -238,8 +281,7 @@ public class to {
             return null;
         }
 
-        //todo reimplement
-        return MessageFormat.format(text, params);
+        return to.String(text, to.arr(params, Object.class));
     }
 
     @Nullable
@@ -300,6 +342,14 @@ public class to {
 
     public static Object[] arr(Object... objects) {
         return objects;
+    }
+
+    public static Object[] arr(@Nullable Iterable objects) {
+        return to.arr(objects, Object.class);
+    }
+
+    public static <V> V[] arr(@Nullable Iterable<V> objects, Class<V> clazz) {
+        return to.arr(to.list(objects), clazz);
     }
 
     public static <V> V[] arr(@Nullable Collection<V> objects, Class<V> clazz) {
@@ -680,6 +730,21 @@ public class to {
     public static <T> List<T> list(T... value) {
         List<T> answer = new ArrayList<>();
         Collections.addAll(answer, value);
+        return answer;
+    }
+
+    @Nullable
+    public static <T> List<T> list(@Nullable Iterable<T> objects) {
+        if (objects == null) {
+            return null;
+        }
+
+        List<T> answer = new ArrayList<>();
+
+        for (T object : objects) {
+            answer.add(object);
+        }
+
         return answer;
     }
 
@@ -1109,14 +1174,6 @@ public class to {
             t.setDaemon(true);
 
             return t;
-        }
-
-        public static ToParallel parallel() {
-            return parallel(null);
-        }
-
-        public static ToParallel parallel(ExecutorService pool) {
-            return new ToParallel(pool);
         }
     }
 }
