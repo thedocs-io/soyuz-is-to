@@ -29,7 +29,7 @@ public class to {
     private static final Logger log = LoggerFactory.getLogger(to.class);
 
     @Nullable
-    public static Integer Integer(Object val) {
+    public static Integer Integer(@Nullable Object val) {
         if (val == null) {
             return null;
         } else if (val instanceof Integer) {
@@ -40,15 +40,17 @@ public class to {
     }
 
     @Nullable
-    public static Integer Integer(String val) {
+    public static Integer Integer(@Nullable String val) {
         return Integer(val, null);
     }
 
-    public static Integer Integer(Object val, Integer defaultValue) {
+    @Nullable
+    public static Integer Integer(@Nullable Object val, @Nullable Integer defaultValue) {
         return Integer(val, defaultValue, true);
     }
 
-    public static Integer Integer(Object val, Integer defaultValue, boolean silent) {
+    @Nullable
+    public static Integer Integer(@Nullable Object val, @Nullable Integer defaultValue, boolean silent) {
         if (val != null) {
             try {
                 return doIntConvert(val);
@@ -76,11 +78,13 @@ public class to {
         return Float(val, null);
     }
 
-    public static Float Float(@Nullable Object val, Float defaultValue) {
+    @Nullable
+    public static Float Float(@Nullable Object val, @Nullable Float defaultValue) {
         return Float(val, defaultValue, true);
     }
 
-    public static Float Float(@Nullable Object val, Float defaultValue, boolean silent) {
+    @Nullable
+    public static Float Float(@Nullable Object val, @Nullable Float defaultValue, boolean silent) {
         if (val != null) {
             try {
                 if (val instanceof Float) {
@@ -97,20 +101,22 @@ public class to {
     }
 
     @Nullable
-    public static Long Long(Object val) {
+    public static Long Long(@Nullable Object val) {
         return Long(val, null);
     }
 
     @Nullable
-    public static Long Long(String val) {
+    public static Long Long(@Nullable String val) {
         return Long(val, null);
     }
 
-    public static Long Long(Object val, Long defaultValue) {
+    @Nullable
+    public static Long Long(@Nullable Object val, @Nullable Long defaultValue) {
         return Long(val, defaultValue, true);
     }
 
-    public static Long Long(Object val, Long defaultValue, boolean silent) {
+    @Nullable
+    public static Long Long(@Nullable Object val, @Nullable Long defaultValue, boolean silent) {
         if (val != null) {
             try {
                 if (val instanceof Long) {
@@ -127,15 +133,17 @@ public class to {
     }
 
     @Nullable
-    public static Boolean Boolean(String val) {
+    public static Boolean Boolean(@Nullable String val) {
         return Boolean(val, null);
     }
 
-    public static Boolean Boolean(String val, Boolean defaultValue) {
+    @Nullable
+    public static Boolean Boolean(@Nullable String val, @Nullable Boolean defaultValue) {
         return Boolean(val, defaultValue, true);
     }
 
-    public static Boolean Boolean(Object val, Boolean defaultValue, boolean silent) {
+    @Nullable
+    public static Boolean Boolean(@Nullable Object val, @Nullable Boolean defaultValue, boolean silent) {
         if (val != null) {
             try {
                 return doBooleanConvert(val);
@@ -209,21 +217,33 @@ public class to {
      * Replaces {} from {@code text} with {@code params}
      * e.g. to.s("Hello {}", "World") -> Hello World
      */
-    public static String String(String text, Object... params) {
+    @Nullable
+    public static String String(@Nullable String text, Object... params) {
+        if (text == null) {
+            return null;
+        }
+
         //todo reimplement
         return MessageFormat.format(text, params);
     }
 
-    public static String s(String text, Object... params) {
+    @Nullable
+    public static String s(@Nullable String text, Object... params) {
         return to.String(text, params);
     }
 
-    public static String String(String text, Iterable params) {
+    @Nullable
+    public static String String(@Nullable String text, Iterable params) {
+        if (text != null) {
+            return null;
+        }
+
         //todo reimplement
         return MessageFormat.format(text, params);
     }
 
-    public static String s(String text, Iterable params) {
+    @Nullable
+    public static String s(@Nullable String text, Iterable params) {
         return to.String(text, params);
     }
 
@@ -231,7 +251,12 @@ public class to {
      * Replaces {PARAM_KEY} from {@code text} with {@code params}
      * e.g. to.s("Hello {planet}", to.map("planet", "Earth")) -> Hello Earth
      */
-    public static String String(String text, Map<String, ?> params) {
+    @Nullable
+    public static String String(@Nullable String text, Map<String, ?> params) {
+        if (text != null) {
+            return null;
+        }
+
         for (Map.Entry<String, ?> e : params.entrySet()) {
             text = text.replace("{" + e.getKey() + "}", e.getValue().toString());
         }
@@ -239,14 +264,20 @@ public class to {
         return text;
     }
 
-    public static String s(String text, Map<String, ?> params) {
+    @Nullable
+    public static String s(@Nullable String text, Map<String, ?> params) {
         return to.String(text, params);
     }
 
     /**
      * Joins {@code iterable} with {@code separator}
      */
-    public static String String(Iterable iterable, String separator) {
+    @Nullable
+    public static String String(@Nullable Iterable iterable, String separator) {
+        if (iterable == null) {
+            return null;
+        }
+
         Iterator iterator = iterable.iterator();
         StringBuilder sb = new StringBuilder();
 
@@ -260,7 +291,8 @@ public class to {
         return sb.toString();
     }
 
-    public static String s(Iterable iterable, String separator) {
+    @Nullable
+    public static String s(@Nullable Iterable iterable, String separator) {
         return to.String(iterable, separator);
     }
 
@@ -326,6 +358,7 @@ public class to {
         return fillMapWithParams(new HashMap<String, String>(), params);
     }
 
+    //todo ???
     public static Map<String, String> map(Map<String, String> source, String... params) {
         return fillMapWithParams(new HashMap<>(source), params);
     }
@@ -334,11 +367,17 @@ public class to {
         return fillMapWithParams(new HashMap(), params);
     }
 
+    //todo ???
     public static Map map(Map source, Object... params) {
         return fillMapWithParams(new HashMap(source), params);
     }
 
-    public static <K, V, R> Map<K, R> map(Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
+    @Nullable
+    public static <K, V, R> Map<K, R> map(@Nullable Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
+        if (source == null) {
+            return null;
+        }
+
         Map<K, R> answer = new HashMap<>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
@@ -352,7 +391,12 @@ public class to {
         return answer;
     }
 
-    public static <K, V, R> Map<K, R> map(Map<K, V> source, BiFunction<K, V, R> mapper) {
+    @Nullable
+    public static <K, V, R> Map<K, R> map(@Nullable Map<K, V> source, BiFunction<K, V, R> mapper) {
+        if (source == null) {
+            return null;
+        }
+
         Map<K, R> answer = new HashMap<>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
@@ -362,11 +406,17 @@ public class to {
         return answer;
     }
 
-    public static <T, K> Map<K, T> map(Iterable<T> source, Function<T, K> keyFunction) {
+    @Nullable
+    public static <T, K> Map<K, T> map(@Nullable Iterable<T> source, Function<T, K> keyFunction) {
         return map(source, keyFunction, (s) -> s);
     }
 
-    public static <T, K, V> Map<K, V> map(Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
+    @Nullable
+    public static <T, K, V> Map<K, V> map(@Nullable Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        if (source == null) {
+            return null;
+        }
+
         Map<K, V> answer = new HashMap<K, V>();
 
         for (T e : source) {
@@ -374,6 +424,10 @@ public class to {
         }
 
         return answer;
+    }
+
+    public static <K, V> Map<K, V> linkedHashMap() {
+        return new LinkedHashMap<>();
     }
 
     public static <K, V> Map<K, V> linkedHashMap(K k1, V v1) {
@@ -430,6 +484,7 @@ public class to {
         return fillMapWithParams(new LinkedHashMap<String, String>(), params);
     }
 
+    //todo ???
     public static Map<String, String> linkedHashMap(Map<String, String> source, String... params) {
         return fillMapWithParams(new LinkedHashMap<>(source), params);
     }
@@ -438,11 +493,17 @@ public class to {
         return fillMapWithParams(new LinkedHashMap(), params);
     }
 
+    //todo ???
     public static Map linkedHashMap(Map source, Object... params) {
         return fillMapWithParams(new LinkedHashMap(source), params);
     }
 
-    public static <K, V, R> Map<K, R> linkedHashMap(Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
+    @Nullable
+    public static <K, V, R> Map<K, R> linkedHashMap(@Nullable Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
+        if (source != null) {
+            return null;
+        }
+
         Map<K, R> answer = new LinkedHashMap<K, R>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
@@ -456,7 +517,12 @@ public class to {
         return answer;
     }
 
-    public static <K, V, R> Map<K, R> linkedHashMap(Map<K, V> source, BiFunction<K, V, R> mapper) {
+    @Nullable
+    public static <K, V, R> Map<K, R> linkedHashMap(@Nullable Map<K, V> source, BiFunction<K, V, R> mapper) {
+        if (source == null) {
+            return null;
+        }
+
         Map<K, R> answer = new LinkedHashMap<K, R>();
 
         for (Map.Entry<K, V> e : source.entrySet()) {
@@ -466,11 +532,17 @@ public class to {
         return answer;
     }
 
-    public static <T, K> Map<K, T> linkedHashMap(Iterable<T> source, Function<T, K> keyFunction) {
+    @Nullable
+    public static <T, K> Map<K, T> linkedHashMap(@Nullable Iterable<T> source, Function<T, K> keyFunction) {
         return linkedHashMap(source, keyFunction, (s) -> s);
     }
 
-    public static <T, K, V> Map<K, V> linkedHashMap(Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
+    @Nullable
+    public static <T, K, V> Map<K, V> linkedHashMap(@Nullable Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        if (source == null) {
+            return null;
+        }
+
         Map<K, V> answer = new LinkedHashMap<K, V>();
 
         for (T e : source) {
@@ -494,26 +566,37 @@ public class to {
 
     // STREAM
 
-    public static <T> Stream<T> stream(T[] array) {
-        return Arrays.stream(array);
+    @Nullable
+    public static <T> Stream<T> stream(@Nullable T[] array) {
+        return (array == null) ? null : Arrays.stream(array);
     }
 
-    //http://stackoverflow.com/a/24511534
-    public static <T> Stream<T> stream(final Iterator<T> iterator) {
+    /**
+     * http://stackoverflow.com/a/24511534
+     */
+    @Nullable
+    public static <T> Stream<T> stream(@Nullable final Iterator<T> iterator) {
+        if (iterator == null) {
+            return null;
+        }
+
         final Iterable<T> iterable = () -> iterator;
         return StreamSupport.stream(iterable.spliterator(), false);
     }
 
-    public static IntStream stream(int[] array) {
-        return Arrays.stream(array);
+    @Nullable
+    public static IntStream stream(@Nullable int[] array) {
+        return (array == null) ? null : Arrays.stream(array);
     }
 
-    public static LongStream stream(long[] array) {
-        return Arrays.stream(array);
+    @Nullable
+    public static LongStream stream(@Nullable long[] array) {
+        return (array == null) ? null : Arrays.stream(array);
     }
 
-    public static DoubleStream stream(double[] array) {
-        return Arrays.stream(array);
+    @Nullable
+    public static DoubleStream stream(@Nullable double[] array) {
+        return (array == null) ? null : Arrays.stream(array);
     }
 
     // COLLECTIONS
@@ -869,11 +952,17 @@ public class to {
 
     // THREAD
 
-    public static Thread daemon(Runnable runnable) {
+    @Nullable
+    public static Thread daemon(@Nullable Runnable runnable) {
         return daemon(null, runnable);
     }
 
-    public static Thread daemon(String threadName, Runnable runnable) {
+    @Nullable
+    public static Thread daemon(@Nullable String threadName, @Nullable Runnable runnable) {
+        if (runnable == null) {
+            return null;
+        }
+
         Thread t = (is.t(threadName)) ? new Thread(runnable, threadName) : new Thread(runnable);
         t.setDaemon(true);
 
