@@ -1,37 +1,17 @@
-apply plugin: "maven-publish"
 apply plugin: "java"
-apply plugin: "idea"
 apply plugin: "groovy"
+apply plugin: 'maven'
+apply plugin: 'signing'
 
-group = "io.belov.soyuz"
-version = "1.57"
+group = "io.thedocs"
+archivesBaseName = "soyuz-is-to"
+version = "0.58"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven {
-        url "https://mymavenrepo.com/repo/${myMavenRepoReadToken}/"
-    }
-}
-
-ext {
-    //myMavenRepoWriteToken = null
-}
-
-publishing {
-    repositories {
-        maven {
-            url "https://mymavenrepo.com/repo/${myMavenRepoWriteToken}/"
-        }
-    }
-
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
 }
 
 dependencies {
@@ -46,5 +26,72 @@ dependencies {
     testCompile "org.spockframework:spock-core:1.0-groovy-2.3"
     testCompile "com.google.guava:guava:18.0"
     testCompile "org.projectlombok:lombok:1.16.8"
+}
 
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.3"
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'soyuz-loge'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'truthy checks + simple x -> y conversion for Java'
+                url 'https://github.com/thedocs-io/soyuz-is-to'
+
+                scm {
+                    url 'scm:git@github.com:thedocs-io/soyuz-is-to.git'
+                    connection 'scm:git@github.com:thedocs-io/soyuz-is-to.git'
+                    developerConnection 'scm:git@github.com:thedocs-io/soyuz-is-to.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'fedotxxl'
+                        name 'Fedor Belov'
+                    }
+                }
+            }
+        }
+    }
 }

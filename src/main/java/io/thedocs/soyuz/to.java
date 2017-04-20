@@ -209,7 +209,7 @@ public class to {
 
     /**
      * Replaces {} from {@code text} with {@code params}
-     * e.g. to.s("Hello {}", "World") -> Hello World
+     * e.g. to.s("Hello {}", "World") -&gt; Hello World
      */
     @Nullable
     public static String String(@Nullable String text, Object... params) {
@@ -291,7 +291,7 @@ public class to {
 
     /**
      * Replaces {PARAM_KEY} from {@code text} with {@code params}
-     * e.g. to.s("Hello {planet}", to.map("planet", "Earth")) -> Hello Earth
+     * e.g. to.s("Hello {planet}", to.map("planet", "Earth")) -&gt; Hello Earth
      */
     @Nullable
     public static String String(@Nullable String text, Map<String, ?> params) {
@@ -702,7 +702,7 @@ public class to {
     }
 
     /**
-     * @see org.apache.commons.collections.IteratorUtils.toList
+     * see org.apache.commons.collections.IteratorUtils.toList
      */
     @Nullable
     public static <T> List<T> list(@Nullable Iterator<T> iterator, int estimatedSize) {
