@@ -950,6 +950,15 @@ public class to {
     }
 
     // THREAD
+    @Nullable
+    public static Thread thread(@Nullable Runnable runnable) {
+        return to.thread(null, runnable);
+    }
+
+    @Nullable
+    public static Thread thread(@Nullable String threadName, @Nullable Runnable runnable) {
+        return (is.t(threadName)) ? new Thread(runnable, threadName) : new Thread(runnable);
+    }
 
     @Nullable
     public static Thread daemon(@Nullable Runnable runnable) {
@@ -962,56 +971,10 @@ public class to {
             return null;
         }
 
-        Thread t = (is.t(threadName)) ? new Thread(runnable, threadName) : new Thread(runnable);
+        Thread t = to.thread(threadName, runnable);
         t.setDaemon(true);
 
         return t;
-    }
-
-    public static Thread daemonForever(long delayInMillis, Runnable runnable) {
-        return daemonForever(null, delayInMillis, runnable);
-    }
-
-    public static Thread daemonForever(final String threadName, final long delayInMillis, final Runnable runnable) {
-        return daemonForever(threadName, delayInMillis, runnable, 0);
-    }
-
-    public static Thread daemonForever(final String threadName, final long delayInMillis, final Runnable runnable, long startDelayInMillis) {
-        Runnable forever = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (startDelayInMillis > 0) {
-                        Thread.sleep(startDelayInMillis);
-                    }
-
-                    while (true) {
-                        runnable.run();
-
-                        try {
-                            Thread.sleep(delayInMillis);
-                        } catch (InterruptedException e) {
-                            //
-                        }
-                    }
-                } catch (Throwable e) {
-                    log.error("daemon.forever.e: " + threadName, e);
-                }
-            }
-        };
-
-        Thread t = (is.t(threadName)) ? new Thread(forever, threadName) : new Thread(forever);
-        t.setDaemon(true);
-
-        return t;
-    }
-
-    public static ToParallel parallel() {
-        return parallel(null);
-    }
-
-    public static ToParallel parallel(ExecutorService pool) {
-        return new ToParallel(pool);
     }
 
     private static Integer doIntConvert(BigDecimal val) {
@@ -1062,4 +1025,52 @@ public class to {
         return Boolean.valueOf(val.toString());
     }
 
+    public static class e {
+
+        public static Thread daemonForever(long delayInMillis, Runnable runnable) {
+            return daemonForever(null, delayInMillis, runnable);
+        }
+
+        public static Thread daemonForever(final String threadName, final long delayInMillis, final Runnable runnable) {
+            return daemonForever(threadName, delayInMillis, runnable, 0);
+        }
+
+        public static Thread daemonForever(final String threadName, final long delayInMillis, final Runnable runnable, long startDelayInMillis) {
+            Runnable forever = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (startDelayInMillis > 0) {
+                            Thread.sleep(startDelayInMillis);
+                        }
+
+                        while (true) {
+                            runnable.run();
+
+                            try {
+                                Thread.sleep(delayInMillis);
+                            } catch (InterruptedException e) {
+                                //
+                            }
+                        }
+                    } catch (Throwable e) {
+                        log.error("daemon.forever.e: " + threadName, e);
+                    }
+                }
+            };
+
+            Thread t = (is.t(threadName)) ? new Thread(forever, threadName) : new Thread(forever);
+            t.setDaemon(true);
+
+            return t;
+        }
+
+        public static ToParallel parallel() {
+            return parallel(null);
+        }
+
+        public static ToParallel parallel(ExecutorService pool) {
+            return new ToParallel(pool);
+        }
+    }
 }
