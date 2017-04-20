@@ -1,8 +1,8 @@
-package io.belov.soyuz.utils
+package io.thedocs.soyuz
 
 import com.google.common.base.Stopwatch
 import spock.lang.Specification
-import io.belov.soyuz.utils.to as To;
+import io.thedocs.soyuz.to as To;
 
 
 import java.util.concurrent.TimeUnit

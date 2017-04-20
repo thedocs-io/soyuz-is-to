@@ -1,6 +1,6 @@
-package io.belov.soyuz.utils
+package io.thedocs.soyuz
 
-import io.belov.soyuz.utils.to as To
+import io.thedocs.soyuz.to as To
 import spock.lang.Specification
 
 import java.time.LocalDate

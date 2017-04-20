@@ -2,14 +2,13 @@
  * to
  * Copyright (c) 2012 Cybervision. All rights reserved.
  */
-package io.belov.soyuz.utils;
+package io.thedocs.soyuz;
 
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URI;

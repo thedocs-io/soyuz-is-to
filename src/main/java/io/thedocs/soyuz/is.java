@@ -1,4 +1,4 @@
-package io.belov.soyuz.utils;
+package io.thedocs.soyuz;
 
 import java.io.File;
 import java.util.Collection;

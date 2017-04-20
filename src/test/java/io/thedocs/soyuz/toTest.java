@@ -1,5 +1,6 @@
-package io.belov.soyuz.utils;
+package io.thedocs.soyuz;
 
+import io.thedocs.soyuz.to;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
