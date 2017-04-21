@@ -25,3 +25,24 @@ LocalDate date = to.localDate(now)
 ## to convert
 
 ## to functional
+
+## How to use
+### Maven
+```
+<dependency>
+    <groupId>io.thedocs</groupId>
+    <artifactId>soyuz-is-to</artifactId>
+    <version>0.58</version>
+</dependency>
+```
+
+### Gradle
+```
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.thedocs:soyuz-is-to:0.58'
+}
+```
