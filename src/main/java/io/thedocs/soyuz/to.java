@@ -14,6 +14,7 @@ import java.net.URL;
 import java.time.*;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.*;
@@ -1020,43 +1021,55 @@ public class to {
     // FUNC
 
     @Nullable
-    public static <T, V> V valueOrNull(@Nullable T object, Function<T, V> func) {
+    public static <T, V> V nullOr(@Nullable T object, Function<T, V> func) {
         return (object == null) ? null : func.apply(object);
     }
 
-    public static <T> T nullOr(Object o, Supplier<T> supplier) {
+    @Nullable
+    public static <T> T nullOr(@Nullable T object, Consumer<T> consumer) {
+        if (object == null) {
+            return null;
+        }
+
+        consumer.accept(object);
+
+        return object;
+    }
+
+    @Nullable
+    public static <T> T nullOr(@Nullable Object o, Supplier<T> supplier) {
         return (o == null) ? null : supplier.get();
     }
 
-    public static <T> T or(T o, Supplier<T> supplier) {
+    public static <T> T or(@Nullable T o, Supplier<T> supplier) {
         return (o != null) ? o : supplier.get();
     }
 
-    public static <T> T or(T o, T otherwise) {
+    public static <T> T or(@Nullable T o, T otherwise) {
         return (o != null) ? o : otherwise;
     }
 
-    public static String orDefault(String o) {
+    public static String orDefault(@Nullable String o) {
         return (o != null) ? o : "";
     }
 
-    public static <T> Iterable<T> orDefault(Iterable<T> o) {
+    public static <T> Iterable<T> orDefault(@Nullable Iterable<T> o) {
         return (o != null) ? o : new ArrayList<>();
     }
 
-    public static <T> Collection<T> orDefault(Collection<T> o) {
+    public static <T> Collection<T> orDefault(@Nullable Collection<T> o) {
         return (o != null) ? o : new ArrayList<>();
     }
 
-    public static <T> List<T> orDefault(List<T> o) {
+    public static <T> List<T> orDefault(@Nullable List<T> o) {
         return (o != null) ? o : new ArrayList<>();
     }
 
-    public static <T> Set<T> orDefault(Set<T> o) {
+    public static <T> Set<T> orDefault(@Nullable Set<T> o) {
         return (o != null) ? o : new HashSet<>();
     }
 
-    public static <K, V> Map<K, V> orDefault(Map<K, V> o) {
+    public static <K, V> Map<K, V> orDefault(@Nullable Map<K, V> o) {
         return (o != null) ? o : new HashMap<>();
     }
 
