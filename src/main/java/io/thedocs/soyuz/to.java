@@ -13,6 +13,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.Semaphore;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -1151,6 +1155,14 @@ public class to {
 
     public static class e {
 
+        public static Parallel parallel() {
+            return parallel(null);
+        }
+
+        public static Parallel parallel(ExecutorService pool) {
+            return new Parallel(pool);
+        }
+
         public static Thread daemonForever(long delayInMillis, Runnable runnable) {
             return daemonForever(null, delayInMillis, runnable);
         }
@@ -1187,6 +1199,60 @@ public class to {
             t.setDaemon(true);
 
             return t;
+        }
+    }
+
+    public static class Parallel {
+
+        private static final ExecutorService POOL = Executors.newCachedThreadPool();
+
+        private ExecutorService pool;
+        private int threadsCount = -1;
+
+        private Parallel() {
+            this(null);
+        }
+
+        private Parallel(ExecutorService pool) {
+            this.pool = (pool == null) ? POOL : pool;
+        }
+
+        public <T> List<T> list(Collection<T> items, Consumer<T> consumer) {
+            return list(items, (i) -> {
+                consumer.accept(i);
+
+                return i;
+            });
+        }
+
+        public <T, R> List<R> list(Collection<T> items, Function<T, R> func) {
+            Semaphore semaphore = new Semaphore(getThreadsCountFor(items));
+
+            List<Future<R>> futures = to.list(items, item -> {
+                return pool.submit(() -> {
+                    try {
+                        semaphore.acquire();
+
+                        return func.apply(item);
+                    } catch (Throwable e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        semaphore.release();
+                    }
+                });
+            });
+
+            return to.list(futures, f -> {
+                try {
+                    return f.get();
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
+        private int getThreadsCountFor(Collection items) {
+            return (threadsCount <= 0) ? items.size() : threadsCount;
         }
     }
 }
