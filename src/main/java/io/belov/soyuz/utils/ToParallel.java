@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -24,6 +25,14 @@ public class ToParallel {
 
     ToParallel(ExecutorService pool) {
         this.pool = (pool == null) ? POOL : pool;
+    }
+
+    public <T> List<T> list(Collection<T> items, Consumer<T> consumer) {
+        return list(items, (i) -> {
+            consumer.accept(i);
+
+            return i;
+        });
     }
 
     public <T, R> List<R> list(Collection<T> items, Function<T, R> func) {
