@@ -5,7 +5,7 @@ apply plugin: 'signing'
 
 group = "io.thedocs"
 archivesBaseName = "soyuz-is-to"
-version = "0.60"
+version = "0.61"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

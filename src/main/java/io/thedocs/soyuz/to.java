@@ -1175,6 +1175,11 @@ public class to {
             Runnable forever = new Runnable() {
                 @Override
                 public void run() {
+                    if (delayInMillis <= 0) {
+                        log.warn("daemon.forever.stop: " + threadName + " : delayInMillis should be > 0");
+                        return;
+                    }
+
                     try {
                         if (startDelayInMillis > 0) {
                             Thread.sleep(startDelayInMillis);
