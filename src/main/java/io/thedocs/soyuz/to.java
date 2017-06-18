@@ -100,6 +100,38 @@ public class to {
     }
 
     @Nullable
+    public static Double Double(@Nullable Object val) {
+        return Double(val, null);
+    }
+
+    @Nullable
+    public static Double Double(@Nullable String val) {
+        return Double(val, null);
+    }
+
+    @Nullable
+    public static Double Double(@Nullable Object val, @Nullable Double defaultValue) {
+        return Double(val, defaultValue, true);
+    }
+
+    @Nullable
+    public static Double Double(@Nullable Object val, @Nullable Double defaultValue, boolean silent) {
+        if (val != null) {
+            try {
+                if (val instanceof Double) {
+                    return (Double) val;
+                } else {
+                    return doDoubleConvert(val);
+                }
+            } catch (Exception e) {
+                if (!silent) log.warn("Cannot convert " + val + " to double", e);
+            }
+        }
+
+        return defaultValue;
+    }
+
+    @Nullable
     public static Long Long(@Nullable Object val) {
         return Long(val, null);
     }
@@ -1057,6 +1089,22 @@ public class to {
         return (o != null) ? o : "";
     }
 
+    public static int orDefault(@Nullable Integer o) {
+        return (o != null) ? o : 0;
+    }
+
+    public static double orDefault(@Nullable Double o) {
+        return (o != null) ? o : 0;
+    }
+
+    public static long orDefault(@Nullable Long o) {
+        return (o != null) ? o : 0;
+    }
+
+    public static float orDefault(@Nullable Float o) {
+        return (o != null) ? o : 0;
+    }
+
     public static <T> Iterable<T> orDefault(@Nullable Iterable<T> o) {
         return (o != null) ? o : new ArrayList<>();
     }
@@ -1139,6 +1187,10 @@ public class to {
 
     private static Float doFloatConvert(Object val) {
         return Float.parseFloat(val.toString());
+    }
+
+    private static Double doDoubleConvert(Object val) {
+        return Double.parseDouble(val.toString());
     }
 
     private static Boolean doBooleanConvert(String val) {
