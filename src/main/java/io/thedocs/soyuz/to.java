@@ -733,6 +733,10 @@ public class to {
 
     // COLLECTIONS
 
+    public static <V> List<V> list() {
+        return new ArrayList<V>();
+    }
+
     @Nullable
     public static <T> List<T> list(@Nullable Iterator<T> iterator) {
         return list(iterator, 10);
@@ -837,6 +841,10 @@ public class to {
         }
 
         return answer;
+    }
+
+    public static <T> Set<T> set() {
+        return new HashSet<T>();
     }
 
     public static <T> Set<T> set(T value) {

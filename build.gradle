@@ -1,11 +1,11 @@
 apply plugin: "java"
 apply plugin: "groovy"
-apply plugin: 'maven'
-apply plugin: 'signing'
+apply plugin: "maven"
+apply plugin: "signing"
 
 group = "io.thedocs"
 archivesBaseName = "soyuz-is-to"
-version = "0.61"
+version = "0.62"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -29,13 +29,13 @@ dependencies {
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    classifier = "sources"
     from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from 'build/docs/javadoc'
+    classifier = "javadoc"
+    from "build/docs/javadoc"
 }
 
 artifacts {
@@ -66,29 +66,29 @@ uploadArchives {
             }
 
             pom.project {
-                name 'soyuz-loge'
-                packaging 'jar'
+                name "soyuz-loge"
+                packaging "jar"
                 // optionally artifactId can be defined here
-                description 'truthy checks + simple x -> y conversion for Java'
-                url 'https://github.com/thedocs-io/soyuz-is-to'
+                description "truthy checks + simple x -> y conversion for Java"
+                url "https://github.com/thedocs-io/soyuz-is-to"
 
                 scm {
-                    url 'scm:git@github.com:thedocs-io/soyuz-is-to.git'
-                    connection 'scm:git@github.com:thedocs-io/soyuz-is-to.git'
-                    developerConnection 'scm:git@github.com:thedocs-io/soyuz-is-to.git'
+                    url "scm:git@github.com:thedocs-io/soyuz-is-to.git"
+                    connection "scm:git@github.com:thedocs-io/soyuz-is-to.git"
+                    developerConnection "scm:git@github.com:thedocs-io/soyuz-is-to.git"
                 }
 
                 licenses {
                     license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        name "The Apache License, Version 2.0"
+                        url "http://www.apache.org/licenses/LICENSE-2.0.txt"
                     }
                 }
 
                 developers {
                     developer {
-                        id 'fedotxxl'
-                        name 'Fedor Belov'
+                        id "fedotxxl"
+                        name "Fedor Belov"
                     }
                 }
             }
