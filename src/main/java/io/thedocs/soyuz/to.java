@@ -1070,17 +1070,6 @@ public class to {
     }
 
     @Nullable
-    public static <T> T nullOr(@Nullable T object, Consumer<T> consumer) {
-        if (object == null) {
-            return null;
-        }
-
-        consumer.accept(object);
-
-        return object;
-    }
-
-    @Nullable
     public static <T> T nullOr(@Nullable Object o, Supplier<T> supplier) {
         return (o == null) ? null : supplier.get();
     }
