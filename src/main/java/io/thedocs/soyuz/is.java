@@ -50,6 +50,10 @@ public class is {
         return file != null && file.exists();
     }
 
+    public static boolean t(@Nullable TruthyCastableI check) {
+        return check != null && check.asTruthy();
+    }
+
     public static boolean tt(@Nullable String check) {
         return check != null && check.trim().length() > 0;
     }
