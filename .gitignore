@@ -15,6 +15,9 @@ build/
 
 #gradle
 .gradle/
+gradle/
+gradlew
+gradlew.bat
 
 #npm
 node_modules/

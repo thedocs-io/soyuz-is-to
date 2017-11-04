@@ -1023,6 +1023,18 @@ public class to {
         }
     }
 
+    public static ZonedDateTime zonedDateTime(@Nullable LocalDateTime localDateTime) {
+        return zonedDateTime(localDateTime, null);
+    }
+
+    public static ZonedDateTime zonedDateTime(@Nullable LocalDateTime localDateTime, @Nullable ZoneId zone) {
+        if (localDateTime == null) {
+            return null;
+        } else {
+            return localDateTime.atZone((zone != null) ? zone : ZoneId.systemDefault());
+        }
+    }
+
     @Nullable
     public static Instant instant(@Nullable Date date) {
         if (date == null) {
