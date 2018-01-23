@@ -2,6 +2,7 @@ package io.thedocs.soyuz;
 
 import javax.annotation.Nullable;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
 
@@ -48,6 +49,10 @@ public class is {
 
     public static boolean t(@Nullable File file) {
         return file != null && file.exists();
+    }
+
+    public static boolean t(@Nullable BigDecimal check) {
+        return check != null && !(check.compareTo(BigDecimal.ZERO) == 0);
     }
 
     public static boolean t(@Nullable TruthyCastableI check) {
