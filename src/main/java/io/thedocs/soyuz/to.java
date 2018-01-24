@@ -875,6 +875,21 @@ public class to {
     }
 
     @Nullable
+    public static <T> Set<T> set(@Nullable Iterator<T> iterator) {
+        if (iterator == null) {
+            return null;
+        } else {
+            Set<T> set = new HashSet<>();
+
+            while (iterator.hasNext()) {
+                set.add(iterator.next());
+            }
+
+            return set;
+        }
+    }
+
+    @Nullable
     public static <V> Set<V> set(@Nullable Iterable<V> values) {
         if (values == null) {
             return null;
@@ -899,6 +914,19 @@ public class to {
 
         for (V value : values) {
             answer.add(mapper.apply(value));
+        }
+
+        return answer;
+    }
+
+    @Nullable
+    public static <K, V, R> Set<R> set(@Nullable Map<K, V> map, BiFunction<K, V, R> mapper) {
+        if (map == null) return null;
+
+        Set<R> answer = new HashSet<>();
+
+        for (Map.Entry<K, V> e : map.entrySet()) {
+            answer.add(mapper.apply(e.getKey(), e.getValue()));
         }
 
         return answer;

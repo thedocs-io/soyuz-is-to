@@ -6,7 +6,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class toCollectionTest {
+public class toListTest {
 
     @Test
     public void shouldCreateEmptyList() {
@@ -43,7 +43,7 @@ public class toCollectionTest {
     @Test
     public void shouldApplyMapperToListAndTransformValues() {
         List<Integer> source = to.list(1, 2, 3);
-        List<Integer> expected = to.list(2, 4, 5);
+        List<Integer> expected = to.list(2, 4, 6);
 
         assertEquals(expected, to.list(source, i -> i * 2));
     }
