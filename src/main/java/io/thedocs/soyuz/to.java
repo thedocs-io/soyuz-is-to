@@ -327,8 +327,8 @@ public class to {
     }
 
     /**
-     * Replaces {PARAM_KEY} from {@code text} with {@code params}
-     * e.g. to.s("Hello {planet}", to.map("planet", "Earth")) -&gt; Hello Earth
+     * Replaces {{PARAM_KEY}} from {@code text} with {@code params}
+     * e.g. to.s("Hello {{planet}}", to.map("planet", "Earth")) -&gt; Hello Earth
      */
     @Nullable
     public static String String(@Nullable String text, Map<String, ?> params) {
@@ -337,7 +337,7 @@ public class to {
         }
 
         for (Map.Entry<String, ?> e : params.entrySet()) {
-            text = text.replace("{" + e.getKey() + "}", e.getValue().toString());
+            text = text.replace("{{" + e.getKey() + "}}", e.getValue().toString());
         }
 
         return text;
@@ -504,7 +504,6 @@ public class to {
         return fillMapWithParams(new HashMap(source), params);
     }
 
-    @Nullable
     public static <K, V, R> Map<K, R> map(@Nullable Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
         if (source == null) {
             return null;
@@ -523,7 +522,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <K, V, R> Map<K, R> map(@Nullable Map<K, V> source, BiFunction<K, V, R> mapper) {
         if (source == null) {
             return null;
@@ -538,12 +536,10 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <T, K> Map<K, T> map(@Nullable Iterable<T> source, Function<T, K> keyFunction) {
         return map(source, keyFunction, (s) -> s);
     }
 
-    @Nullable
     public static <T, K, V> Map<K, V> map(@Nullable Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
         if (source == null) {
             return null;
@@ -630,7 +626,6 @@ public class to {
         return fillMapWithParams(new LinkedHashMap(source), params);
     }
 
-    @Nullable
     public static <K, V, R> Map<K, R> linkedHashMap(@Nullable Map<K, V> source, Function<Map.Entry<K, V>, Map<K, R>> mapper) {
         if (source == null) {
             return null;
@@ -649,7 +644,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <K, V, R> Map<K, R> linkedHashMap(@Nullable Map<K, V> source, BiFunction<K, V, R> mapper) {
         if (source == null) {
             return null;
@@ -664,12 +658,10 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <T, K> Map<K, T> linkedHashMap(@Nullable Iterable<T> source, Function<T, K> keyFunction) {
         return linkedHashMap(source, keyFunction, (s) -> s);
     }
 
-    @Nullable
     public static <T, K, V> Map<K, V> linkedHashMap(@Nullable Iterable<T> source, Function<T, K> keyFunction, Function<T, V> valueFunction) {
         if (source == null) {
             return null;
@@ -698,7 +690,6 @@ public class to {
 
     // STREAM
 
-    @Nullable
     public static <T> Stream<T> stream(@Nullable T[] array) {
         return (array == null) ? null : Arrays.stream(array);
     }
@@ -706,7 +697,6 @@ public class to {
     /**
      * http://stackoverflow.com/a/24511534
      */
-    @Nullable
     public static <T> Stream<T> stream(@Nullable final Iterator<T> iterator) {
         if (iterator == null) {
             return null;
@@ -716,17 +706,14 @@ public class to {
         return StreamSupport.stream(iterable.spliterator(), false);
     }
 
-    @Nullable
     public static IntStream stream(@Nullable int[] array) {
         return (array == null) ? null : Arrays.stream(array);
     }
 
-    @Nullable
     public static LongStream stream(@Nullable long[] array) {
         return (array == null) ? null : Arrays.stream(array);
     }
 
-    @Nullable
     public static DoubleStream stream(@Nullable double[] array) {
         return (array == null) ? null : Arrays.stream(array);
     }
@@ -737,7 +724,6 @@ public class to {
         return new ArrayList<V>();
     }
 
-    @Nullable
     public static <T> List<T> list(@Nullable Iterator<T> iterator) {
         return list(iterator, 10);
     }
@@ -745,7 +731,6 @@ public class to {
     /**
      * see org.apache.commons.collections.IteratorUtils.toList
      */
-    @Nullable
     public static <T> List<T> list(@Nullable Iterator<T> iterator, int estimatedSize) {
         if (iterator == null) {
             return null;
@@ -774,7 +759,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <T> List<T> list(@Nullable Iterable<T> objects) {
         if (objects == null) {
             return null;
@@ -789,7 +773,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <T, R> List<R> list(@Nullable T[] values, Function<T, R> mapper) {
         if (values == null) return null;
 
@@ -802,7 +785,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <V> List<V> list(@Nullable Collection<V> values) {
         if (values == null) {
             return null;
@@ -817,7 +799,6 @@ public class to {
         }
     }
 
-    @Nullable
     public static <T, V> List<T> list(@Nullable Collection<V> values, Function<V, T> mapper) {
         if (values == null) return null;
 
@@ -830,7 +811,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <K, V, R> List<R> list(@Nullable Map<K, V> map, BiFunction<K, V, R> mapper) {
         if (map == null) return null;
 
@@ -859,7 +839,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <V> Set<V> set(@Nullable Collection<V> values) {
         if (values == null) {
             return null;
@@ -874,7 +853,6 @@ public class to {
         }
     }
 
-    @Nullable
     public static <T> Set<T> set(@Nullable Iterator<T> iterator) {
         if (iterator == null) {
             return null;
@@ -889,7 +867,6 @@ public class to {
         }
     }
 
-    @Nullable
     public static <V> Set<V> set(@Nullable Iterable<V> values) {
         if (values == null) {
             return null;
@@ -906,7 +883,6 @@ public class to {
         }
     }
 
-    @Nullable
     public static <T, V> Set<T> set(@Nullable Collection<V> values, Function<V, T> mapper) {
         if (values == null) return null;
 
@@ -919,7 +895,6 @@ public class to {
         return answer;
     }
 
-    @Nullable
     public static <K, V, R> Set<R> set(@Nullable Map<K, V> map, BiFunction<K, V, R> mapper) {
         if (map == null) return null;
 
@@ -946,29 +921,24 @@ public class to {
 
     // DATE
 
-    @Nullable
     public static Date date(@Nullable java.sql.Date dateSql) {
         return (dateSql) == null ? null : new Date(dateSql.getTime());
     }
 
-    @Nullable
     public static Date date(@Nullable LocalDate localDate) {
         //http://stackoverflow.com/a/22929420/716027
         return date(localDate, ZoneId.systemDefault());
     }
 
-    @Nullable
     public static Date date(@Nullable LocalDate localDate, ZoneId zone) {
         return (localDate == null) ? null : date(localDate.atStartOfDay(zone));
     }
 
-    @Nullable
     public static Date date(@Nullable LocalDateTime localDateTime) {
         //http://blog.progs.be/542/date-to-java-time
         return date(localDateTime, ZoneId.systemDefault());
     }
 
-    @Nullable
     public static Date date(@Nullable Instant instant) {
         if (instant == null) {
             return null;
@@ -977,22 +947,18 @@ public class to {
         }
     }
 
-    @Nullable
     public static Date date(@Nullable LocalDateTime localDateTime, ZoneId zone) {
         return (localDateTime == null) ? null : date(localDateTime.atZone(zone));
     }
 
-    @Nullable
     public static Date date(@Nullable ZonedDateTime zonedDateTime) {
         return (zonedDateTime == null) ? null : Date.from(zonedDateTime.toInstant());
     }
 
-    @Nullable
     public static java.sql.Date sqlDate(@Nullable Date date) {
         return (date == null) ? null : new java.sql.Date(date.getTime());
     }
 
-    @Nullable
     public static java.sql.Timestamp sqlTimestamp(@Nullable Date date) {
         return (date == null) ? null : new java.sql.Timestamp(date.getTime());
     }
@@ -1006,13 +972,11 @@ public class to {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), zone);
     }
 
-    @Nullable
     public static LocalDateTime localDateTime(@Nullable Date date) {
         //http://blog.progs.be/542/date-to-java-time
         return (date == null) ? null : localDateTime(date.getTime());
     }
 
-    @Nullable
     public static LocalDate localDate(@Nullable Date date) {
         return localDate(date, ZoneId.systemDefault());
     }
@@ -1037,12 +1001,10 @@ public class to {
         return localDateTime(millis, zone).toLocalTime();
     }
 
-    @Nullable
     public static ZonedDateTime zonedDateTime(@Nullable Date date) {
         return zonedDateTime(date, null);
     }
 
-    @Nullable
     public static ZonedDateTime zonedDateTime(@Nullable Date date, @Nullable ZoneId zone) {
         if (date == null) {
             return null;
@@ -1063,7 +1025,6 @@ public class to {
         }
     }
 
-    @Nullable
     public static Instant instant(@Nullable Date date) {
         if (date == null) {
             return null;
@@ -1074,7 +1035,6 @@ public class to {
 
     // URL
 
-    @Nullable
     public static URI uri(@Nullable String url) {
         try {
             return (url == null) ? null : new URI(url);
@@ -1088,7 +1048,6 @@ public class to {
         return new URI(url);
     }
 
-    @Nullable
     public static URL url(@Nullable String url) {
         try {
             return (url == null) ? null : new URL(url);
@@ -1107,11 +1066,6 @@ public class to {
     @Nullable
     public static <T, V> V nullOr(@Nullable T object, Function<T, V> func) {
         return (object == null) ? null : func.apply(object);
-    }
-
-    @Nullable
-    public static <T> T nullOr(@Nullable Object o, Supplier<T> supplier) {
-        return (o == null) ? null : supplier.get();
     }
 
     public static <T> T or(@Nullable T o, Supplier<T> supplier) {
@@ -1163,22 +1117,22 @@ public class to {
     }
 
     // THREAD
-    @Nullable
     public static Thread thread(@Nullable Runnable runnable) {
         return to.thread(null, runnable);
     }
 
-    @Nullable
     public static Thread thread(@Nullable String threadName, @Nullable Runnable runnable) {
+        if (runnable == null) {
+            return null;
+        }
+
         return (is.t(threadName)) ? new Thread(runnable, threadName) : new Thread(runnable);
     }
 
-    @Nullable
     public static Thread daemon(@Nullable Runnable runnable) {
         return daemon(null, runnable);
     }
 
-    @Nullable
     public static Thread daemon(@Nullable String threadName, @Nullable Runnable runnable) {
         if (runnable == null) {
             return null;
