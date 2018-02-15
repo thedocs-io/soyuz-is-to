@@ -27,6 +27,10 @@ public class to {
 
     private static final Logger log = LoggerFactory.getLogger(to.class);
 
+    public static Integer Integer(int val) {
+        return val;
+    }
+
     @Nullable
     public static Integer Integer(@Nullable Object val) {
         if (val == null) {
@@ -59,6 +63,10 @@ public class to {
         }
 
         return defaultValue;
+    }
+
+    public static Float Float(float val) {
+        return val;
     }
 
     @Nullable
@@ -99,6 +107,10 @@ public class to {
         return defaultValue;
     }
 
+    public static Double Double(double val) {
+        return val;
+    }
+
     @Nullable
     public static Double Double(@Nullable Object val) {
         return Double(val, null);
@@ -131,6 +143,10 @@ public class to {
         return defaultValue;
     }
 
+    public static Long Long(long val) {
+        return val;
+    }
+
     @Nullable
     public static Long Long(@Nullable Object val) {
         return Long(val, null);
@@ -161,6 +177,10 @@ public class to {
         }
 
         return defaultValue;
+    }
+
+    public static Boolean Boolean(boolean val) {
+        return val;
     }
 
     @Nullable

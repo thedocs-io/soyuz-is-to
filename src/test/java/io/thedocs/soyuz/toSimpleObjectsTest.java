@@ -19,4 +19,14 @@ public class toSimpleObjectsTest {
         assertEquals(expected, to.s("My name is {{name}}", params));
     }
 
+    @Test
+    public void shouldBoxSimpleObjects() {
+        assertEquals(to.Integer(1), Integer.valueOf(1));
+        assertEquals(to.Float(1.3f), Float.valueOf(1.3f));
+        assertEquals(to.Double(0.5d), Double.valueOf(0.5d));
+        assertEquals(to.Long(2333L), Long.valueOf(2333L));
+        assertEquals(to.Boolean(true), Boolean.valueOf(true));
+        assertEquals(to.Boolean(false), Boolean.valueOf(false));
+    }
+
 }
