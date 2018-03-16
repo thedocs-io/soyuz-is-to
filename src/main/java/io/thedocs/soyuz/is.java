@@ -31,6 +31,14 @@ public class is {
         return check != null && check.size() > 0;
     }
 
+    public static boolean t(@Nullable Double check) {
+        return check != null && check != 0;
+    }
+
+    public static boolean t(@Nullable Float check) {
+        return check != null && check != 0;
+    }
+
     public static boolean t(@Nullable Long check) {
         return check != null && check != 0;
     }
