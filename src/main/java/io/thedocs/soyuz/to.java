@@ -1013,8 +1013,28 @@ public class to {
     }
 
     @Nullable
+    public static java.sql.Date sqlDate(@Nullable LocalDate date) {
+        return sqlDate(date(date));
+    }
+
+    @Nullable
+    public static java.sql.Date sqlDate(@Nullable LocalDateTime dateTime) {
+        return sqlDate(date(dateTime));
+    }
+
+    @Nullable
     public static java.sql.Timestamp sqlTimestamp(@Nullable Date date) {
         return (date == null) ? null : new java.sql.Timestamp(date.getTime());
+    }
+
+    @Nullable
+    public static java.sql.Timestamp sqlTimestamp(@Nullable LocalDate date) {
+        return sqlTimestamp(date(date));
+    }
+
+    @Nullable
+    public static java.sql.Timestamp sqlTimestamp(@Nullable LocalDateTime dateTime) {
+        return sqlTimestamp(date(dateTime));
     }
 
     public static LocalDateTime localDateTime(long millis) {
