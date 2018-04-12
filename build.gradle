@@ -66,7 +66,7 @@ uploadArchives {
             }
 
             pom.project {
-                name "soyuz-loge"
+                name "soyuz-is-to"
                 packaging "jar"
                 // optionally artifactId can be defined here
                 description "truthy checks + simple x -> y conversion for Java"
