@@ -1124,7 +1124,7 @@ public class to {
 
     @Nullable
     public static Instant instant(@Nullable LocalDate localDate) {
-        return instant(localDate, ZoneOffset.UTC);
+        return instant(localDate, ZoneId.systemDefault());
     }
 
     @Nullable
@@ -1137,8 +1137,17 @@ public class to {
     }
 
     @Nullable
+    public static Instant instant(@Nullable LocalDate localDate, ZoneId zoneId) {
+        if (localDate == null) {
+            return null;
+        } else {
+            return instant(localDate.atStartOfDay(), zoneId);
+        }
+    }
+
+    @Nullable
     public static Instant instant(@Nullable LocalDateTime localDateTime) {
-        return instant(localDateTime, ZoneOffset.UTC);
+        return instant(localDateTime, ZoneId.systemDefault());
     }
 
     @Nullable
@@ -1147,6 +1156,15 @@ public class to {
             return null;
         } else {
             return localDateTime.toInstant(zoneOffset);
+        }
+    }
+
+    @Nullable
+    public static Instant instant(@Nullable LocalDateTime localDateTime, ZoneId zoneId) {
+        if (localDateTime == null) {
+            return null;
+        } else {
+            return localDateTime.atZone(zoneId).toInstant();
         }
     }
 

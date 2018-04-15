@@ -2,6 +2,8 @@ package io.thedocs.soyuz;
 
 import org.junit.Test;
 
+import java.time.Instant;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -17,6 +19,15 @@ public class toSimpleObjectsTest {
         assertEquals(to.Long(2333L), Long.valueOf(2333L));
         assertEquals(to.Boolean(true), Boolean.valueOf(true));
         assertEquals(to.Boolean(false), Boolean.valueOf(false));
+    }
+
+    @Test
+    public void shouldTransformInstantLocalDateTimeViseAVersa() {
+        //when
+        Instant now = Instant.now();
+
+        //then
+        assertEquals(now, to.instant(to.localDateTime(to.instant(to.localDateTime(now)))));
     }
 
 }
