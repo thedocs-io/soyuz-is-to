@@ -1112,6 +1112,34 @@ public class to {
         }
     }
 
+    @Nullable
+    public static Instant instant(@Nullable LocalDate localDate) {
+        return instant(localDate, ZoneOffset.UTC);
+    }
+
+    @Nullable
+    public static Instant instant(@Nullable LocalDate localDate, ZoneOffset zoneOffset) {
+        if (localDate == null) {
+            return null;
+        } else {
+            return instant(localDate.atStartOfDay(), zoneOffset);
+        }
+    }
+
+    @Nullable
+    public static Instant instant(@Nullable LocalDateTime localDateTime) {
+        return instant(localDateTime, ZoneOffset.UTC);
+    }
+
+    @Nullable
+    public static Instant instant(@Nullable LocalDateTime localDateTime, ZoneOffset zoneOffset) {
+        if (localDateTime == null) {
+            return null;
+        } else {
+            return localDateTime.toInstant(zoneOffset);
+        }
+    }
+
     // URL
 
     @Nullable
