@@ -1053,8 +1053,18 @@ public class to {
     }
 
     @Nullable
+    public static LocalDateTime localDateTime(@Nullable Instant instant) {
+        return localDateTime(date(instant));
+    }
+
+    @Nullable
     public static LocalDate localDate(@Nullable Date date) {
         return localDate(date, ZoneId.systemDefault());
+    }
+
+    @Nullable
+    public static LocalDate localDate(@Nullable Instant instant) {
+        return localDate(date(instant));
     }
 
     public static LocalDate localDate(@Nullable Date date, ZoneId zone) {
