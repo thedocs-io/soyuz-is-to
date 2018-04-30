@@ -5,8 +5,16 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class toListTest {
+
+    @Test
+    public void shouldReturnNullForNull() {
+        assertNull(to.list((Object[]) null));
+        assertNull(to.list((Object) null));
+        assertNull(to.list((Iterator<Object>) null));
+    }
 
     @Test
     public void shouldCreateEmptyList() {

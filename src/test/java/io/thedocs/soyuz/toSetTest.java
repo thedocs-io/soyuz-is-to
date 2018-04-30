@@ -6,8 +6,16 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class toSetTest {
+
+    @Test
+    public void shouldReturnNullForNull() {
+        assertNull(to.set((Object[]) null));
+        assertNull(to.set((Object) null));
+        assertNull(to.set((Iterator<Object>) null));
+    }
 
     @Test
     public void shouldCreateEmptySet() {

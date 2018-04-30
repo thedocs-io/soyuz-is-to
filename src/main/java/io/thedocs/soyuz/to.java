@@ -782,13 +782,19 @@ public class to {
         }
     }
 
-    public static <T> List<T> list(T value) {
+    @Nullable
+    public static <T> List<T> list(@Nullable T value) {
+        if (value == null) return null;
+
         List<T> answer = new ArrayList<>();
         answer.add(value);
         return answer;
     }
 
-    public static <T> List<T> list(T... value) {
+    @Nullable
+    public static <T> List<T> list(@Nullable T... value) {
+        if (value == null) return null;
+
         List<T> answer = new ArrayList<>();
         Collections.addAll(answer, value);
         return answer;
@@ -863,17 +869,19 @@ public class to {
         return answer;
     }
 
-    public static <T> Set<T> set() {
-        return new HashSet<T>();
-    }
+    @Nullable
+    public static <T> Set<T> set(@Nullable T value) {
+        if (value == null) return null;
 
-    public static <T> Set<T> set(T value) {
         Set<T> answer = new HashSet<T>();
         answer.add(value);
         return answer;
     }
 
-    public static <T> Set<T> set(T... value) {
+    @Nullable
+    public static <T> Set<T> set(@Nullable T... value) {
+        if (value == null) return null;
+
         Set<T> answer = new HashSet<T>();
         Collections.addAll(answer, value);
         return answer;
