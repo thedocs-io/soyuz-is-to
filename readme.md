@@ -4,7 +4,16 @@ This library serves two important features:
  2. to - a lot of useful functions to convert `X` to `Y` (e.g. `Set` to `List`)
 
 ## is
-Is is very simple. It's just `!= null` check and additional logic (like not empty). Please read sources - it's only few lines of code.
+Let's begin with simple things. Class `is` provides you an ability to make `!= null` check + additional logic (like not empty). `is.t(object)` will return `true` in following cases:
+```
+object type                             | condition
+string                                  | != ""
+number (Integer, Long, BigDecimal, etc) | != 0
+collection / map                        | not empty
+file                                    | exist
+```
+It requires only 15-30 seconds to understand it's logic (is it hard for you to read 100 lines of simple code?) but it's very useful in practice.
+
 
 ## to
 Do you know how to convert `String` to `Long`? Well... it's easy. What about `Date` to `LocalDate`? Or `array` to `stream`?
