@@ -357,7 +357,9 @@ public class to {
         }
 
         for (Map.Entry<String, ?> e : params.entrySet()) {
-            text = text.replace("{" + e.getKey() + "}", e.getValue().toString());
+            Object value = e.getValue();
+
+            text = text.replace("{" + e.getKey() + "}", (value == null) ? "null" : value.toString());
         }
 
         return text;

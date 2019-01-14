@@ -157,6 +157,12 @@ class ToSpec extends Specification {
 
         then:
         assert s == "less {a} params efg"
+
+        when:
+        s = To.s("this is {param} value", [param: null])
+
+        then:
+        assert s == "this is null value"
     }
 
     def "should join collection"() {
