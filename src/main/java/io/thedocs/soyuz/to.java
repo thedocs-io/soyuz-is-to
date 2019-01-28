@@ -962,28 +962,37 @@ public class to {
         return answer;
     }
 
+    @Nullable
     public static <T> SortedSet<T> sortedSet(T value) {
+        if (value == null) return null;
+
         SortedSet<T> answer = new TreeSet<T>();
+
         answer.add(value);
+
         return answer;
     }
 
     public static <T> SortedSet<T> sortedSet(T... value) {
-        SortedSet<T> answer = new TreeSet<T>();
+        SortedSet<T> answer = new TreeSet<>();
+
         Collections.addAll(answer, value);
+
         return answer;
     }
 
+    @Nullable
     public static <T> SortedSet<T> sortedSet(@Nullable Collection<T> values) {
         if (values == null) return null;
 
-        return new TreeSet<T>(values);
+        return new TreeSet<>(values);
     }
 
+    @Nullable
     public static <T, V> SortedSet<V> sortedSet(@Nullable Iterable<T> values, Function<T, V> mapper) {
         if (values == null) return null;
 
-        TreeSet<V> answer = new TreeSet<>();
+        SortedSet<V> answer = new TreeSet<>();
 
         for (T value : values) {
             answer.add(mapper.apply(value));
