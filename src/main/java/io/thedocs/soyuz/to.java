@@ -974,6 +974,24 @@ public class to {
         return answer;
     }
 
+    public static <T> SortedSet<T> sortedSet(@Nullable Collection<T> values) {
+        if (values == null) return null;
+
+        return new TreeSet<T>(values);
+    }
+
+    public static <T, V> SortedSet<V> sortedSet(@Nullable Iterable<T> values, Function<T, V> mapper) {
+        if (values == null) return null;
+
+        TreeSet<V> answer = new TreeSet<>();
+
+        for (T value : values) {
+            answer.add(mapper.apply(value));
+        }
+
+        return answer;
+    }
+
     // DATE
 
     @Nullable
